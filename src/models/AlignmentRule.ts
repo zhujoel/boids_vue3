@@ -8,6 +8,10 @@ export default class AlignmentRule implements IRule {
     this.name_ = 'Alignment'
   }
 
+  distance () : number {
+    return 300
+  }
+
   apply (current: Boid, neighbours: Boid[]) : [number, number] {
     const rule: [number, number] = [0, 0]
 

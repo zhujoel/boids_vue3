@@ -31,18 +31,20 @@ export default class Flock {
 
     this.boids_.forEach(boid => {
       const neighbours: Boid[] = []
-      cloneBoids.forEach(neighbour => {
-        if (boid !== neighbour) {
-          neighbours.push(neighbour)
-        }
-      })
-      const acceleration: [number, number] = [0, 0]
       this.rules_.forEach(rule => {
+        const acceleration: [number, number] = [0, 0]
+        cloneBoids.forEach(neighbour => {
+          if (boid.distance(neighbour) < rule.distance()) {
+            if (boid !== neighbour) {
+              neighbours.push(neighbour)
+            }
+          }
+        })
         const ruleAcc = rule.apply(boid, neighbours)
         acceleration[0] += ruleAcc[0]
         acceleration[1] += ruleAcc[1]
+        boid.applyAcceleration(acceleration)
       })
-      boid.applyAcceleration(acceleration)
     })
   }
 }

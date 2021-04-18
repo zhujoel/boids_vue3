@@ -8,6 +8,10 @@ export default class CohesionRule implements IRule {
     this.name_ = 'Cohesion'
   }
 
+  distance () : number {
+    return 300
+  }
+
   apply (current: Boid, neighbours: Boid[]) : [number, number] {
     const rule: [number, number] = [0, 0]
 
@@ -15,9 +19,9 @@ export default class CohesionRule implements IRule {
       rule[0] += b.pos_[0]
       rule[1] += b.pos_[1]
     })
+
     rule[0] /= neighbours.length
     rule[1] /= neighbours.length
-
     rule[0] -= current.pos_[0]
     rule[1] -= current.pos_[1]
     rule[0] /= 100
