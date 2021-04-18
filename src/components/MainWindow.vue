@@ -9,6 +9,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { boidStore } from '../store/BoidStore'
+import Flock from '../models/Flock'
 
 @Options({
   props: {
@@ -19,21 +20,22 @@ export default class HelloWorld extends Vue {
   msg!: string
   cnt = 0
 
-  mounted () : void {
-    const boids = [[0, 0], [40, 50], [40, 80], [20, 50]]
-    var c = document.getElementById('myCanvas') as HTMLCanvasElement
-    var ctx = c.getContext('2d') as CanvasRenderingContext2D
-    boids.forEach(
-      boid => {
-        ctx.beginPath()
-        ctx.arc(boid[0], boid[1], 10, 0, 2 * Math.PI)
-        ctx.stroke()
-      })
-  }
-
   inc () : void {
     boidStore.incrementCount()
     this.cnt = boidStore.getState().count
+    var c = document.getElementById('myCanvas') as HTMLCanvasElement
+    var ctx = c.getContext('2d') as CanvasRenderingContext2D
+    ctx.clearRect(0, 0, 200, 100)
+    const flock = new Flock(5)
+    flock.boids_.forEach(
+      boid => {
+        ctx.beginPath()
+        ctx.arc(boid.pos_[0], boid.pos_[1], 2, 0, 2 * Math.PI)
+        ctx.stroke()
+        ctx.closePath()
+      }
+    )
+    requestAnimationFrame(this.inc)
   }
 }
 </script>
