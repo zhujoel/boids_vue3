@@ -2,13 +2,11 @@
   <div class="main">
     <h1>{{ msg }}</h1>
     <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"/>
-    <button @click="inc()">{{cnt}}</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { boidStore } from '../store/BoidStore'
 import Flock from '../models/Flock'
 
 @Options({
@@ -21,12 +19,11 @@ export default class HelloWorld extends Vue {
   cnt = 0
 
   inc () : void {
-    boidStore.incrementCount()
-    this.cnt = boidStore.getState().count
     var c = document.getElementById('myCanvas') as HTMLCanvasElement
     var ctx = c.getContext('2d') as CanvasRenderingContext2D
     ctx.clearRect(0, 0, 200, 100)
     const flock = new Flock(5)
+    flock.move()
     flock.boids_.forEach(
       boid => {
         ctx.beginPath()
