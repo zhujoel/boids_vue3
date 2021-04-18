@@ -18,13 +18,31 @@ export default class Flock {
     }
   }
 
-  move () : void {
+  cloneBoids () : Boid[] {
+    const newFlock: Boid[] = []
     this.boids_.forEach(boid => {
-      this.boids_.forEach(neighbour => {
-        if (boid === neighbour) {
-          console.log(true)
+      newFlock.push(boid.clone())
+    })
+    return newFlock
+  }
+
+  move () : void {
+    const cloneBoids = this.cloneBoids()
+
+    this.boids_.forEach(boid => {
+      const neighbours: Boid[] = []
+      cloneBoids.forEach(neighbour => {
+        if (boid !== neighbour) {
+          neighbours.push(neighbour)
         }
       })
+      const acceleration: [number, number] = [0, 0]
+      this.rules_.forEach(rule => {
+        const ruleAcc = rule.apply(boid, neighbours)
+        acceleration[0] += ruleAcc[0]
+        acceleration[1] += ruleAcc[1]
+      })
+      boid.applyAcceleration(acceleration)
     })
   }
 }

@@ -8,8 +8,8 @@ export default class CohesionRule implements IRule {
     this.name_ = 'Cohesion'
   }
 
-  apply (current: Boid, neighbours: Boid[]) : number[] {
-    const rule: number[] = [0, 0]
+  apply (current: Boid, neighbours: Boid[]) : [number, number] {
+    const rule: [number, number] = [0, 0]
 
     neighbours.forEach(b => {
       rule[0] += b.pos_[0]

@@ -8,8 +8,8 @@ export default class AlignmentRule implements IRule {
     this.name_ = 'Alignment'
   }
 
-  apply (current: Boid, neighbours: Boid[]) : number[] {
-    const rule: number[] = [0, 0]
+  apply (current: Boid, neighbours: Boid[]) : [number, number] {
+    const rule: [number, number] = [0, 0]
 
     neighbours.forEach(b => {
       rule[0] += b.vel_[0]
