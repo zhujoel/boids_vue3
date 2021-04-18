@@ -35,17 +35,5 @@ export default class HelloWorld extends Vue {
     boidStore.incrementCount()
     this.cnt = boidStore.getState().count
   }
-
-  // setup () {
-  //   const inc = () => {
-  //     clickStore.incrementCount()
-  //     // should throw a warning and don't mutate the store
-  //     clickStore.getState().count++
-  //   }
-
-  //   return {
-  //     countState: clickStore.getState(), inc
-  //   }
-  // }
 }
 </script>
