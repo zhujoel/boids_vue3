@@ -19,8 +19,12 @@ export default class Flock {
   }
 
   move () : void {
-    for (let i = 0; i < this.size_; ++i) {
-      this.boids_.push(new Boid([Math.random() * 50, Math.random() * 50], [0, 0], i))
-    }
+    this.boids_.forEach(boid => {
+      this.boids_.forEach(neighbour => {
+        if (boid === neighbour) {
+          console.log(true)
+        }
+      })
+    })
   }
 }

@@ -8,18 +8,16 @@ export default class CohesionRule implements IRule {
     this.name_ = 'Cohesion'
   }
 
-  apply (boid: Boid, neighbours: Boid[]) : number[] {
+  apply (current: Boid, neighbours: Boid[]) : number[] {
     const rule: number[] = [0, 0]
 
-    neighbours.forEach(
-      (b: Boid) => {
-        rule[0] += b.pos_[0]
-        rule[1] += b.pos_[1]
-      }
-    )
+    neighbours.forEach(b => {
+      rule[0] += b.pos_[0]
+      rule[1] += b.pos_[1]
+    })
 
-    rule[0] -= boid.pos_[0]
-    rule[1] -= boid.pos_[1]
+    rule[0] -= current.pos_[0]
+    rule[1] -= current.pos_[1]
     rule[0] /= neighbours.length
     rule[1] /= neighbours.length
     return rule
