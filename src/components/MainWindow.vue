@@ -23,7 +23,7 @@ export default class HelloWorld extends Vue {
       ctx.stroke()
       ctx.closePath()
     })
-    // requestAnimationFrame(this.inc)
+    requestAnimationFrame(this.inc)
   }
 }
 </script>

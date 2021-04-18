@@ -14,7 +14,7 @@ export default class Flock {
     this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
     this.boids_ = []
     for (let i = 0; i < size; ++i) {
-      this.boids_.push(new Boid([Math.random() * 50, Math.random() * 50], [0, 0], i))
+      this.boids_.push(new Boid([Math.random() * 500, Math.random() * 250], [0, 0], i))
     }
   }
 
