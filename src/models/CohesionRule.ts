@@ -9,7 +9,7 @@ export default class CohesionRule implements IRule {
   }
 
   distance () : number {
-    return 300
+    return 500
   }
 
   apply (current: Boid, neighbours: Boid[]) : [number, number] {

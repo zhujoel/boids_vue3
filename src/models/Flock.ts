@@ -14,7 +14,7 @@ export default class Flock {
     this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
     this.boids_ = []
     for (let i = 0; i < size; ++i) {
-      this.boids_.push(new Boid([Math.random() * 500, Math.random() * 250], [0, 0], i))
+      this.boids_.push(new Boid([Math.random() * 1250, Math.random() * 500], [0, 0], i))
     }
   }
 
@@ -32,7 +32,6 @@ export default class Flock {
     this.boids_.forEach(boid => {
       const neighbours: Boid[] = []
       this.rules_.forEach(rule => {
-        const acceleration: [number, number] = [0, 0]
         cloneBoids.forEach(neighbour => {
           if (boid.distance(neighbour) < rule.distance()) {
             if (boid !== neighbour) {
@@ -41,6 +40,7 @@ export default class Flock {
           }
         })
         const ruleAcc = rule.apply(boid, neighbours)
+        const acceleration: [number, number] = [0, 0]
         acceleration[0] += ruleAcc[0]
         acceleration[1] += ruleAcc[1]
         boid.applyAcceleration(acceleration)

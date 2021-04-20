@@ -23,18 +23,14 @@ export default class Boid {
     this.vel_[0] += acc[0]
     this.vel_[1] += acc[1]
 
-    if (this.vel_[0] > 20 || this.vel_[1] > 20) {
-      this.vel_[0] = (this.vel_[0] / Math.abs(this.vel_[0])) * this.vel_[0]
-      this.vel_[1] = (this.vel_[1] / Math.abs(this.vel_[1])) * this.vel_[1]
+    const velMagnitude = Math.sqrt(this.vel_[0] * this.vel_[0] + this.vel_[1] * this.vel_[1])
+    const vlim = 3
+    if (velMagnitude > vlim) {
+      this.vel_[0] = (this.vel_[0] / velMagnitude) * vlim
+      this.vel_[1] = (this.vel_[1] / velMagnitude) * vlim
     }
 
     this.pos_[0] += this.vel_[0]
     this.pos_[1] += this.vel_[1]
-
-    if (this.pos_[0] > 1250 || this.pos_[1] > 500 || this.pos_[0] < 0 || this.pos_[1] < 0) {
-      this.pos_[0] = 600
-      this.pos_[1] = 250
-    }
-    
   }
 }

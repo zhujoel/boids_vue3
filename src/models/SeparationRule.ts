@@ -20,8 +20,6 @@ export default class SeparationRule implements IRule {
       rule[1] -= (b.pos_[1] - current.pos_[1])
     })
 
-    rule[0] /= 1000
-    rule[1] /= 1000
     return rule
   }
 }
