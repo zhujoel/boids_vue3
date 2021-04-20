@@ -24,7 +24,7 @@ export default class Boid {
     this.vel_[1] += acc[1]
 
     const velMagnitude = Math.sqrt(this.vel_[0] * this.vel_[0] + this.vel_[1] * this.vel_[1])
-    const vlim = 3
+    const vlim = 2
     if (velMagnitude > vlim) {
       this.vel_[0] = (this.vel_[0] / velMagnitude) * vlim
       this.vel_[1] = (this.vel_[1] / velMagnitude) * vlim

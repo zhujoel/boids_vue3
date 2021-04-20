@@ -33,10 +33,8 @@ export default class Flock {
       const neighbours: Boid[] = []
       this.rules_.forEach(rule => {
         cloneBoids.forEach(neighbour => {
-          if (boid.distance(neighbour) < rule.distance()) {
-            if (boid !== neighbour) {
-              neighbours.push(neighbour)
-            }
+          if (rule.isIn(boid, neighbour)) {
+            neighbours.push(neighbour)
           }
         })
         const ruleAcc = rule.apply(boid, neighbours)

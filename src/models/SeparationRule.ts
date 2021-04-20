@@ -8,8 +8,10 @@ export default class SeparationRule implements IRule {
     this.name_ = 'Separation'
   }
 
-  distance () : number {
-    return 100
+  isIn (current: Boid, other: Boid) : boolean {
+    const x = other.pos_[0] - current.pos_[0]
+    const y = other.pos_[1] - current.pos_[1]
+    return current !== other && Math.sqrt(x * x + y + y) < 100
   }
 
   apply (current: Boid, neighbours: Boid[]) : [number, number] {

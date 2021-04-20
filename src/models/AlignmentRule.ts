@@ -8,8 +8,10 @@ export default class AlignmentRule implements IRule {
     this.name_ = 'Alignment'
   }
 
-  distance () : number {
-    return 500
+  isIn (current: Boid, other: Boid) : boolean {
+    const x = other.pos_[0] - current.pos_[0]
+    const y = other.pos_[1] - current.pos_[1]
+    return current !== other && Math.sqrt(x * x + y + y) < 300
   }
 
   apply (current: Boid, neighbours: Boid[]) : [number, number] {
