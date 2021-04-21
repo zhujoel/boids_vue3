@@ -19,16 +19,20 @@ export default class Boid {
     return Math.sqrt(x * x + y * y)
   }
 
-  applyAcceleration (acc: [number, number]) : void {
-    this.vel_[0] += acc[0]
-    this.vel_[1] += acc[1]
-
+  limitVelocity () : void {
+    const vlim = 3
     const velMagnitude = Math.sqrt(this.vel_[0] * this.vel_[0] + this.vel_[1] * this.vel_[1])
-    const vlim = 2
     if (velMagnitude > vlim) {
       this.vel_[0] = (this.vel_[0] / velMagnitude) * vlim
       this.vel_[1] = (this.vel_[1] / velMagnitude) * vlim
     }
+  }
+
+  applyAcceleration (acc: [number, number]) : void {
+    this.vel_[0] += acc[0]
+    this.vel_[1] += acc[1]
+
+    this.limitVelocity()
 
     this.pos_[0] += this.vel_[0]
     this.pos_[1] += this.vel_[1]
