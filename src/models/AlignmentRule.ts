@@ -9,15 +9,7 @@ export default class AlignmentRule implements IRule {
   }
 
   isIn (current: Boid, other: Boid) : boolean {
-    // if (current === other) return false
-    // const center : [number, number] = [current.vel_[0], current.vel_[1]]
-    // if (center[0] === 0 || center[1] === 0) return true
-    // const p : [number, number] = [other.pos_[0] - current.pos_[0], other.pos_[1] - current.pos_[1]]
-    // const centerNorme = Math.sqrt(center[0] * center[0] + center[1] * center[1])
-    // const pNorme = Math.sqrt(p[0] * p[0] + p[1] * p[1])
-    // const cosAlpha = (center[0] * p[0] + center[1] * p[1]) / (centerNorme * pNorme)
-    // return Math.acos(cosAlpha) <= 180
-    return current !== other && current.distance(other) < 100
+    return current !== other && current.distance(other) < 300 && current.inView(other)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {

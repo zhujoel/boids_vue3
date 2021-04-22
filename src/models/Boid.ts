@@ -19,6 +19,17 @@ export default class Boid {
     return Math.sqrt(x * x + y * y)
   }
 
+  inView (other: Boid) : boolean {
+    const angle = 90
+    const center : [number, number] = [this.vel_[0], this.vel_[1]]
+    if (center[0] === 0 && center[1] === 0) return false
+    const p : [number, number] = [other.pos_[0] - this.pos_[0], other.pos_[1] - this.pos_[1]]
+    const centerNorme = Math.sqrt(center[0] * center[0] + center[1] * center[1])
+    const pNorme = Math.sqrt(p[0] * p[0] + p[1] * p[1])
+    const cosAlpha = (center[0] * p[0] + center[1] * p[1]) / (centerNorme * pNorme)
+    return Math.acos(cosAlpha) <= angle
+  }
+
   limitVelocity () : void {
     const vlim = 3
     const velMagnitude = Math.sqrt(this.vel_[0] * this.vel_[0] + this.vel_[1] * this.vel_[1])

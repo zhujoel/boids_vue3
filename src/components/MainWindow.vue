@@ -19,7 +19,8 @@ export default class HelloWorld extends Vue {
     this.flock.move()
     this.flock.boids_.forEach(boid => {
       ctx.beginPath()
-      ctx.arc(boid.pos_[0], boid.pos_[1], 2, 0, 2 * Math.PI)
+      ctx.arc(boid.pos_[0], boid.pos_[1], 3, 0, 2 * Math.PI)
+      ctx.arc(boid.pos_[0] + boid.vel_[0], boid.pos_[1] + boid.vel_[1], 1, 0, 2 * Math.PI)
       ctx.stroke()
       ctx.closePath()
     })
