@@ -10,7 +10,7 @@ import { Vue } from 'vue-class-component'
 import Flock from '../models/Flock'
 
 export default class HelloWorld extends Vue {
-  flock = new Flock(20)
+  flock = new Flock(30)
 
   inc () : void {
     var c = document.getElementById('myCanvas') as HTMLCanvasElement

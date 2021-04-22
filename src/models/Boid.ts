@@ -19,8 +19,7 @@ export default class Boid {
     return Math.sqrt(x * x + y * y)
   }
 
-  inView (other: Boid) : boolean {
-    const angle = 90
+  inView (other: Boid, angle : number) : boolean {
     const center : [number, number] = [this.vel_[0], this.vel_[1]]
     if (center[0] === 0 && center[1] === 0) return false
     const p : [number, number] = [other.pos_[0] - this.pos_[0], other.pos_[1] - this.pos_[1]]
