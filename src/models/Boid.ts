@@ -1,5 +1,8 @@
+import * as PIXI from 'pixi.js'
+
 export default class Boid {
   public pos_: [number, number]
+  // public graphics = new PIXI.Graphics()
   public vel_: [number, number]
   public idx_: number
 
