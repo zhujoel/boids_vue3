@@ -19,6 +19,8 @@ export default class Boid {
     return Math.sqrt(x * x + y * y)
   }
 
+  // checks for distance and angle of view.
+  // the angle parameter goes from 0 to 360.
   inView (other: Boid, angle : number) : boolean {
     const center : [number, number] = [this.vel_[0], this.vel_[1]]
     if (center[0] === 0 && center[1] === 0) return false
