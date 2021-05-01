@@ -11,9 +11,20 @@ import Flock from '../models/Flock'
 
 export default class HelloWorld extends Vue {
   start = false
+  mouseX = 0
+  mouseY = 0
 
   mounted () : void {
-    this.animate(new Flock(250))
+    this.animate(new Flock(20))
+
+    const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
+    var rect = canvas.getBoundingClientRect()
+
+    // mouse position on the canvas to make boid go away from it
+    canvas.onmousemove = e => {
+      this.mouseX = e.x - rect.x
+      this.mouseY = e.y - rect.y
+    }
   }
 
   startStop () : void {
@@ -21,15 +32,15 @@ export default class HelloWorld extends Vue {
   }
 
   animate (flock : Flock) : void {
-    const c = document.getElementById('myCanvas') as HTMLCanvasElement
-    const ctx = c.getContext('2d') as CanvasRenderingContext2D
+    const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D
 
     const tick = () => {
       if (this.start) {
-        flock.move()
-        ctx.clearRect(0, 0, 1250, 500)
+        flock.move([this.mouseX, this.mouseY])
+        context.clearRect(0, 0, 1250, 500)
         flock.boids_.forEach(boid => {
-          ctx.fillRect(boid.pos_[0], boid.pos_[1], 2, 2)
+          context.fillRect(boid.pos_[0], boid.pos_[1], 2, 2)
         })
       }
       requestAnimationFrame(tick)

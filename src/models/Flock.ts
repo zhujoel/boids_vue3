@@ -22,7 +22,7 @@ export default class Flock {
     }
   }
 
-  move () : void {
+  move (mousePos: [number, number]) : void {
     const newBoids : Boid[] = []
     const acceleration: [number, number] = [0, 0]
     this.boids_.forEach(boid => {
@@ -31,6 +31,10 @@ export default class Flock {
         acceleration[0] += ruleAcc[0]
         acceleration[1] += ruleAcc[1]
       })
+      // tendency away from mouse position
+      acceleration[0] += (((mousePos[0] - boid.pos_[0]) / 100))
+      acceleration[1] += (((mousePos[1] - boid.pos_[1]) / 100))
+
       const newBoid = boid.clone()
       newBoid.applyAcceleration(acceleration)
       acceleration[0] = 0
