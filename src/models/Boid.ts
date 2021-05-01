@@ -61,4 +61,23 @@ export default class Boid {
     this.pos()[0] += this.vel_[0]
     this.pos()[1] += this.vel_[1]
   }
+
+  limitVelTmp (newBoid : number[][]) : void {
+    const vlim = 3
+    const velMagnitude = Math.sqrt(newBoid[1][0] * newBoid[1][0] + newBoid[1][1] * newBoid[1][1])
+    if (velMagnitude > vlim) {
+      newBoid[1][0] = (newBoid[1][0] / velMagnitude) * vlim
+      newBoid[1][1] = (newBoid[1][1] / velMagnitude) * vlim
+    }
+  }
+
+  applyAccTmp (newBoid : number[][], acc: [number, number]) : void {
+    newBoid[1][0] += acc[0]
+    newBoid[1][1] += acc[1]
+
+    // this.limitVelTmp(newBoid)
+
+    newBoid[0][0] += newBoid[1][0]
+    newBoid[0][1] += newBoid[1][1]
+  }
 }

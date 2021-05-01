@@ -10,18 +10,24 @@ import Flock from '../models/Flock'
 import * as PIXI from 'pixi.js'
 
 export default class HelloWorld extends Vue {
-  flock = new Flock(100)
-  app = new PIXI.Application({ width: 1250, height: 800 })
+  // app = new PIXI.Application({ width: 1250, height: 800 })
 
   mounted () : void {
-    const main = document.getElementById('main') as HTMLDivElement
-    main.appendChild(this.app.view)
-    this.flock.boids_.forEach(boid => {
-      this.app.stage.addChild(boid.graphics)
-    })
+    // const main = document.getElementById('main') as HTMLDivElement
+    // main.appendChild(this.app.view)
+    // this.flock.boids_.forEach(boid => {
+    //   this.app.stage.addChild(boid.graphics)
+    // })
   }
 
   inc () : void {
+    const flock = new Flock(100)
+    const app = new PIXI.Application({ width: 1250, height: 800 })
+    const main = document.getElementById('main') as HTMLDivElement
+    main.appendChild(app.view)
+    flock.boids_.forEach(boid => {
+      app.stage.addChild(boid.graphics)
+    })
     // this.flock.boids_.forEach(boid => {
     //   var graphics = new PIXI.Graphics()
     //   graphics.beginFill(0xFFFF00)
@@ -38,10 +44,10 @@ export default class HelloWorld extends Vue {
     // })
 
     // this.flock.move()
-    this.app.ticker.add(() => {
+    app.ticker.add(() => {
       // this.app.stage.getChildAt(0).x += 5
       // this.flock.boids_[0].graphics.x += 5
-      this.flock.move()
+      flock.move()
     })
   }
 }
