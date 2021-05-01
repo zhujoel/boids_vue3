@@ -10,13 +10,12 @@ import { Vue } from 'vue-class-component'
 import Flock from '../models/Flock'
 
 export default class HelloWorld extends Vue {
-  flock = new Flock(50)
-  c! : HTMLCanvasElement
+  flock = new Flock(30)
   ctx! : CanvasRenderingContext2D
 
   mounted () : void {
-    this.c = document.getElementById('myCanvas') as HTMLCanvasElement
-    this.ctx = this.c.getContext('2d') as CanvasRenderingContext2D
+    const c = document.getElementById('myCanvas') as HTMLCanvasElement
+    this.ctx = c.getContext('2d') as CanvasRenderingContext2D
   }
 
   inc () : void {
