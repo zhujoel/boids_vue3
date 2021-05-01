@@ -15,7 +15,7 @@ export default class Flock {
     this.boids_ = []
     for (let i = 0; i < size; ++i) {
       this.boids_.push(new Boid(
-        [Math.random() * 1250, Math.random() * 500],
+        [Math.random() * 625, Math.random() * 400],
         [Math.random(), Math.random()],
         i)
       )
@@ -23,20 +23,24 @@ export default class Flock {
   }
 
   move () : void {
-    const newBoids : Boid[] = []
-    const acceleration: [number, number] = [0, 0]
+    // const newBoids : Boid[] = []
+    // const acceleration: [number, number] = [0, 0]
+    // this.boids_.forEach(boid => {
+    //   this.rules_.forEach(rule => {
+    //     const ruleAcc = rule.apply(boid, this.boids_)
+    //     acceleration[0] += ruleAcc[0]
+    //     acceleration[1] += ruleAcc[1]
+    //   })
+    //   const newBoid = boid.clone()
+    //   newBoid.applyAcceleration(acceleration)
+    //   acceleration[0] = 0
+    //   acceleration[1] = 0
+    //   newBoids.push(newBoid)
+    // })
+    // this.boids_ = newBoids
     this.boids_.forEach(boid => {
-      this.rules_.forEach(rule => {
-        const ruleAcc = rule.apply(boid, this.boids_)
-        acceleration[0] += ruleAcc[0]
-        acceleration[1] += ruleAcc[1]
-      })
-      const newBoid = boid.clone()
-      newBoid.applyAcceleration(acceleration)
-      acceleration[0] = 0
-      acceleration[1] = 0
-      newBoids.push(newBoid)
+      boid.graphics.x += 1
+      boid.graphics.y += 1
     })
-    this.boids_ = newBoids
   }
 }

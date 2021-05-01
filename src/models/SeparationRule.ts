@@ -17,8 +17,8 @@ export default class SeparationRule implements IRule {
 
     boids.forEach(b => {
       if (this.isIn(current, b)) {
-        rule[0] = rule[0] - (b.pos_[0] - current.pos_[0])
-        rule[1] = rule[1] - (b.pos_[1] - current.pos_[1])
+        rule[0] = rule[0] - (b.pos()[0] - current.pos()[0])
+        rule[1] = rule[1] - (b.pos()[1] - current.pos()[1])
       }
     })
 
