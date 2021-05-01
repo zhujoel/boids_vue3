@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <button @click="inc()">Click !</button>
+    <button @click="startStop()">Click !</button>
     <canvas id="myCanvas" width="1250" height="500" style="border:1px solid #000000;"/>
   </div>
 </template>
@@ -10,24 +10,32 @@ import { Vue } from 'vue-class-component'
 import Flock from '../models/Flock'
 
 export default class HelloWorld extends Vue {
-  flock = new Flock(30)
-  ctx! : CanvasRenderingContext2D
+  start = true
 
   mounted () : void {
-    const c = document.getElementById('myCanvas') as HTMLCanvasElement
-    this.ctx = c.getContext('2d') as CanvasRenderingContext2D
+    this.animate(new Flock(250))
   }
 
-  inc () : void {
-    this.ctx.save()
-    this.flock.move()
-    this.flock.boids_.forEach(boid => {
-      this.ctx.fillRect(boid.pos_[0], boid.pos_[1], 2, 2)
-      // ctx.arc(boid.pos_[0], boid.pos_[1], 3, 0, 2 * Math.PI)
-      // ctx.arc(boid.pos_[0] + boid.vel_[0], boid.pos_[1] + boid.vel_[1], 1, 0, 2 * Math.PI)
-    })
-    this.ctx.restore()
-    requestAnimationFrame(this.inc)
+  startStop () : void {
+    this.start = !this.start
+  }
+
+  animate (flock : Flock) : void {
+    const c = document.getElementById('myCanvas') as HTMLCanvasElement
+    const ctx = c.getContext('2d') as CanvasRenderingContext2D
+
+    const tick = () => {
+      if (this.start) {
+        flock.move()
+        ctx.clearRect(0, 0, 1250, 500)
+        flock.boids_.forEach(boid => {
+          ctx.fillRect(boid.pos_[0], boid.pos_[1], 2, 2)
+        })
+      }
+      requestAnimationFrame(tick)
+    }
+
+    tick()
   }
 }
 </script>
