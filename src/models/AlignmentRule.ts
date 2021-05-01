@@ -9,7 +9,7 @@ export default class AlignmentRule implements IRule {
   }
 
   isIn (current: Boid, other: Boid) : boolean {
-    return current !== other && current.distance(other) < 150 && current.inView(other, 180)
+    return current !== other && current.distance(other) < 50 && current.inView(other, 360)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {

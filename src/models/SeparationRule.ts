@@ -9,7 +9,7 @@ export default class SeparationRule implements IRule {
   }
 
   isIn (current: Boid, other: Boid) : boolean {
-    return current !== other && current.distance(other) < 10 && current.inView(other, 5)
+    return current !== other && current.distance(other) < 5 && current.inView(other, 5)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {

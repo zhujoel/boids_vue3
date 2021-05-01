@@ -43,10 +43,8 @@ export default class Boid {
   applyAcceleration (acc: [number, number]) : void {
     this.vel_[0] += acc[0]
     this.vel_[1] += acc[1]
-
-    this.limitVelocity()
-
     this.pos_[0] += this.vel_[0]
     this.pos_[1] += this.vel_[1]
+    this.limitVelocity()
   }
 }

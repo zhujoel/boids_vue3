@@ -10,7 +10,7 @@ import { Vue } from 'vue-class-component'
 import Flock from '../models/Flock'
 
 export default class HelloWorld extends Vue {
-  start = true
+  start = false
 
   mounted () : void {
     this.animate(new Flock(250))

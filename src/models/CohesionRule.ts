@@ -9,7 +9,7 @@ export default class CohesionRule implements IRule {
   }
 
   isIn (current: Boid, other: Boid) : boolean {
-    return current !== other && current.distance(other) < 150 && current.inView(other, 180)
+    return current !== other && current.distance(other) < 150 && current.inView(other, 90)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {
