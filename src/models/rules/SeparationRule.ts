@@ -1,5 +1,5 @@
 import IRule from './IRule'
-import Boid from './Boid'
+import Boid from '../Boid'
 
 export default class SeparationRule implements IRule {
   readonly name_: string

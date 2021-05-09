@@ -1,15 +1,15 @@
 import IRule from './IRule'
-import Boid from './Boid'
+import Boid from '../Boid'
 
-export default class AlignmentRule implements IRule {
+export default class CohesionRule implements IRule {
   readonly name_: string
 
   constructor () {
-    this.name_ = 'Alignment'
+    this.name_ = 'Cohesion'
   }
 
   isIn (current: Boid, other: Boid) : boolean {
-    return current !== other && current.distance(other) < 50 && current.inView(other, 360)
+    return current !== other && current.distance(other) < 150 && current.inView(other, 90)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {
@@ -18,8 +18,8 @@ export default class AlignmentRule implements IRule {
     let cnt = 0
     boids.forEach(b => {
       if (this.isIn(current, b)) {
-        rule[0] = rule[0] + b.vel_[0]
-        rule[1] = rule[1] + b.vel_[1]
+        rule[0] = rule[0] + b.pos_[0]
+        rule[1] = rule[1] + b.pos_[1]
         cnt++
       }
     })
@@ -27,8 +27,8 @@ export default class AlignmentRule implements IRule {
 
     rule[0] = rule[0] / cnt
     rule[1] = rule[1] / cnt
-    rule[0] = (rule[0] - current.vel_[0]) / 8
-    rule[1] = (rule[1] - current.vel_[1]) / 8
+    rule[0] = (rule[0] - current.pos_[0]) / 100
+    rule[1] = (rule[1] - current.pos_[1]) / 100
     return rule
   }
 }

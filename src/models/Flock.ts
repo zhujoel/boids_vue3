@@ -1,8 +1,8 @@
 import Boid from './Boid'
-import IRule from './IRule'
-import CohesionRule from './CohesionRule'
-import AlignmentRule from './AlignmentRule'
-import SeparationRule from './SeparationRule'
+import IRule from './rules/IRule'
+import CohesionRule from './rules/CohesionRule'
+import AlignmentRule from './rules/AlignmentRule'
+import SeparationRule from './rules/SeparationRule'
 
 export default class Flock {
   public boids_: Boid[]

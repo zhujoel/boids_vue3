@@ -1,4 +1,4 @@
-import Boid from './Boid'
+import Boid from '../Boid'
 
 export default interface IRule {
   readonly name_: string
