@@ -28,8 +28,8 @@ export default class Flock {
     this.boids_.forEach(boid => {
       this.rules_.forEach(rule => {
         const ruleAcc = rule.apply(boid, this.boids_)
-        acceleration[0] += ruleAcc[0]
-        acceleration[1] += ruleAcc[1]
+        acceleration[0] += rule.mag_ * ruleAcc[0]
+        acceleration[1] += rule.mag_ * ruleAcc[1]
       })
       // tendency away from mouse position
       acceleration[0] += (((mousePos[0] - boid.pos_[0]) / 100))

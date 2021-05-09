@@ -1,15 +1,9 @@
 import IRule from './IRule'
 import Boid from '../Boid'
 
-export default class AlignmentRule implements IRule {
-  readonly name_: string
-
+export default class AlignmentRule extends IRule {
   constructor () {
-    this.name_ = 'Alignment'
-  }
-
-  isIn (current: Boid, other: Boid) : boolean {
-    return current !== other && current.distance(other) < 50 && current.inView(other, 360)
+    super('Alignment', 0.5, 50, 360)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {

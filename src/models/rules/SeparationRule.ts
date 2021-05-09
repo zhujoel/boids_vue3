@@ -1,15 +1,9 @@
 import IRule from './IRule'
 import Boid from '../Boid'
 
-export default class SeparationRule implements IRule {
-  readonly name_: string
-
+export default class SeparationRule extends IRule {
   constructor () {
-    this.name_ = 'Separation'
-  }
-
-  isIn (current: Boid, other: Boid) : boolean {
-    return current !== other && current.distance(other) < 5 && current.inView(other, 5)
+    super('Separation', 0.5, 5, 5)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {

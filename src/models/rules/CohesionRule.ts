@@ -1,15 +1,9 @@
 import IRule from './IRule'
 import Boid from '../Boid'
 
-export default class CohesionRule implements IRule {
-  readonly name_: string
-
+export default class CohesionRule extends IRule {
   constructor () {
-    this.name_ = 'Cohesion'
-  }
-
-  isIn (current: Boid, other: Boid) : boolean {
-    return current !== other && current.distance(other) < 150 && current.inView(other, 90)
+    super('Cohesion', 0.5, 150, 90)
   }
 
   apply (current: Boid, boids: Boid[]) : [number, number] {
