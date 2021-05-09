@@ -17,17 +17,18 @@ export default class Boid {
   // checks for distance and angle of view.
   // the angle parameter goes from 0 to 360.
   inView (other: Boid, angle : number) : boolean {
-    if (this.vel_.isNull()) return false
-    const center : Point = this.vel_.clone()
-    const pos : Point = other.pos_.clone().subP(this.pos_)
-    const centerNorm : number = center.norm2()
-    const pNorm : number = pos.norm2()
-    const cosAlpha = center.dotProd(pos) / (centerNorm * pNorm)
-    return Math.acos(cosAlpha) <= angle
+    // if (this.vel_.isNull()) return false
+    // const center : Point = this.vel_.clone()
+    // const pos : Point = other.pos_.clone().subP(this.pos_)
+    // const centerNorm : number = center.norm2()
+    // const pNorm : number = pos.norm2()
+    // const cosAlpha = center.dotProd(pos) / (centerNorm * pNorm)
+    // return Math.acos(cosAlpha) <= angle
+    return true
   }
 
   limitVelocity () : void {
-    const vlim = 20
+    const vlim = 15
     const velMag = this.vel_.norm2()
     if (velMag > vlim) {
       this.vel_.divS(velMag).multS(vlim)

@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Vue } from 'vue-class-component'
 import Flock from '../models/Flock'
+import Boid from '../models/Boid'
 
 export default class HelloWorld extends Vue {
   start = false
@@ -15,7 +16,7 @@ export default class HelloWorld extends Vue {
   mouseY = 0
 
   mounted () : void {
-    this.animate(new Flock(20))
+    this.animate(new Flock(100))
 
     const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
     var rect = canvas.getBoundingClientRect()
@@ -31,6 +32,23 @@ export default class HelloWorld extends Vue {
     this.start = !this.start
   }
 
+  drawBoid (boid: Boid, context: CanvasRenderingContext2D) : void {
+    // context.fillRect(boid.pos_.x_, boid.pos_.y_, 2, 2)
+
+    const angle = Math.atan2(boid.vel_.y_, boid.vel_.x_)
+    context.translate(boid.pos_.x_, boid.pos_.y_)
+    context.rotate(angle)
+    context.translate(-boid.pos_.x_, -boid.pos_.y_)
+    context.fillStyle = '#558cf4'
+    context.beginPath()
+    context.moveTo(boid.pos_.x_, boid.pos_.y_)
+    context.lineTo(boid.pos_.x_ - 15, boid.pos_.y_ + 5)
+    context.lineTo(boid.pos_.x_ - 15, boid.pos_.y_ - 5)
+    context.lineTo(boid.pos_.x_, boid.pos_.y_)
+    context.fill()
+    context.setTransform(1, 0, 0, 1, 0, 0)
+  }
+
   animate (flock : Flock) : void {
     const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
     const context = canvas.getContext('2d') as CanvasRenderingContext2D
@@ -40,7 +58,7 @@ export default class HelloWorld extends Vue {
         flock.move([this.mouseX, this.mouseY])
         context.clearRect(0, 0, 1250, 500)
         flock.boids_.forEach(boid => {
-          context.fillRect(boid.pos_.x_, boid.pos_.y_, 2, 2)
+          this.drawBoid(boid, context)
         })
       }
       requestAnimationFrame(tick)

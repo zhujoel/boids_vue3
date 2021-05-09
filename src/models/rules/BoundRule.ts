@@ -7,22 +7,20 @@ export default class BoundRule {
     this.name_ = 'Bound'
   }
 
-  apply (current: Boid, Xmax: number, Ymax: number) : Point {
-    const rule: Point = new Point(0, 0)
+  apply (current: Boid, Xmax: number, Ymax: number) : void {
     const x = current.pos_.x_
     const y = current.pos_.y_
+    const turnFactor = 1
 
     if (x < 0) {
-      rule.x_ = 2
+      current.vel_.x_ += turnFactor
     } else if (x > Xmax) {
-      rule.y_ = -2
+      current.vel_.x_ -= turnFactor
     }
     if (y < 0) {
-      rule.x_ = 2
+      current.vel_.y_ += turnFactor
     } else if (y > Ymax) {
-      rule.y_ = -2
+      current.vel_.y_ -= turnFactor
     }
-
-    return rule
   }
 }

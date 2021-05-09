@@ -4,11 +4,12 @@ import Point from '../Point'
 
 export default class AlignmentRule extends IRule {
   constructor () {
-    super('Alignment', 0.5, 50, 360)
+    super('Alignment', 0.5, 75, 360)
   }
 
-  apply (current: Boid, boids: Boid[]) : Point {
+  apply (current: Boid, boids: Boid[]) : void {
     const rule: Point = new Point(0, 0)
+    const matchingFactor = 0.05 // Adjust by this % of average velocity
 
     let cnt = 0
     boids.forEach(b => {
@@ -17,8 +18,9 @@ export default class AlignmentRule extends IRule {
         cnt++
       }
     })
-    if (cnt === 0) return rule
-
-    return rule.divS(cnt).subP(current.vel_).divS(8).multS(this.mag_)
+    if (cnt !== 0) {
+      rule.divS(cnt).subP(current.vel_).multS(matchingFactor)
+      current.vel_.addP(rule)
+    }
   }
 }

@@ -4,21 +4,22 @@ import Point from '../Point'
 
 export default class CohesionRule extends IRule {
   constructor () {
-    super('Cohesion', 0.5, 150, 90)
+    super('Cohesion', 0.5, 75, 360)
   }
 
-  apply (current: Boid, boids: Boid[]) : Point {
-    const rule: Point = new Point(0, 0)
-
+  apply (current: Boid, boids: Boid[]) : void {
+    const center: Point = new Point(0, 0)
+    const centeringFactor = 0.005 // adjust velocity by this %
     let cnt = 0
     boids.forEach(b => {
       if (this.isIn(current, b)) {
-        rule.addP(b.pos_)
+        center.addP(b.pos_)
         cnt++
       }
     })
-    if (cnt === 0) return rule
-
-    return rule.divS(cnt).subP(current.pos_).divS(100).multS(this.mag_)
+    if (cnt) {
+      center.divS(cnt).subP(current.pos_).multS(centeringFactor)
+      current.vel_.addP(center)
+    }
   }
 }
