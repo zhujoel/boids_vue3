@@ -17,6 +17,6 @@ export default class SeparationRule extends IRule {
       }
     })
 
-    return rule
+    return rule.multS(this.mag_)
   }
 }

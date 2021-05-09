@@ -19,6 +19,6 @@ export default class CohesionRule extends IRule {
     })
     if (cnt === 0) return rule
 
-    return rule.divS(cnt).subP(current.pos_).divS(100)
+    return rule.divS(cnt).subP(current.pos_).divS(100).multS(this.mag_)
   }
 }

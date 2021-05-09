@@ -19,6 +19,6 @@ export default class AlignmentRule extends IRule {
     })
     if (cnt === 0) return rule
 
-    return rule.divS(cnt).subP(current.vel_).divS(8)
+    return rule.divS(cnt).subP(current.vel_).divS(8).multS(this.mag_)
   }
 }

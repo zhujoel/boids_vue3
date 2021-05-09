@@ -8,24 +8,24 @@ import Point from './Point'
 
 export default class Flock {
   public boids_: Boid[]
-  public rules_: IRule[]
+  public ali_ : AlignmentRule = new AlignmentRule()
+  public coh_ : CohesionRule = new CohesionRule()
+  public sep_ : SeparationRule = new SeparationRule()
   public size_: number
 
   constructor (size: number) {
     this.size_ = size
-    // this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
-    this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
     this.boids_ = []
-    for (let i = 0; i < size; ++i) {
-      this.boids_.push(new Boid(
-        new Point(Math.random() * 1250, Math.random() * 500),
-        new Point(Math.random(), Math.random()))
-      )
-    }
-    // this.boids_.push(new Boid(new Point(350, 350), new Point(1, 1)))
-    // this.boids_.push(new Boid(new Point(400, 350), new Point(-1, 1)))
-    // this.boids_.push(new Boid(new Point(350, 400), new Point(1, -1)))
-    // this.boids_.push(new Boid(new Point(400, 400), new Point(-1, -1)))
+    // for (let i = 0; i < size; ++i) {
+    //   this.boids_.push(new Boid(
+    //     new Point(Math.random() * 1250, Math.random() * 500),
+    //     new Point(Math.random(), Math.random()))
+    //   )
+    // }
+    this.boids_.push(new Boid(new Point(350, 350), new Point(1, 1)))
+    this.boids_.push(new Boid(new Point(400, 350), new Point(-1, 1)))
+    this.boids_.push(new Boid(new Point(350, 400), new Point(1, -1)))
+    this.boids_.push(new Boid(new Point(400, 400), new Point(-1, -1)))
 
     // this.boids_.push(new Boid([50, 50], [1, 1], 0))
     // this.boids_.push(new Boid([100, 50], [-1, 1], 1))
@@ -37,10 +37,9 @@ export default class Flock {
     const newBoids : Boid[] = []
     const acceleration: Point = new Point(0, 0)
     this.boids_.forEach(boid => {
-      this.rules_.forEach(rule => {
-        const ruleAcc = rule.apply(boid, this.boids_)
-        acceleration.addP(ruleAcc.multS(rule.mag_))
-      })
+      acceleration.addP(this.ali_.apply(boid, this.boids_))
+      acceleration.addP(this.coh_.apply(boid, this.boids_))
+      acceleration.addP(this.sep_.apply(boid, this.boids_))
       // tendency away from mouse position
       // acceleration[0] += (((mousePos[0] - boid.pos_[0]) / 100))
       // acceleration[1] += (((mousePos[1] - boid.pos_[1]) / 100))
