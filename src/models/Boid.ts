@@ -1,6 +1,9 @@
+import BoundRule from './rules/BoundRule'
+
 export default class Boid {
   public pos_: [number, number]
   public vel_: [number, number]
+  public boundRule_: BoundRule = new BoundRule()
   public idx_: number
 
   constructor (pos: [number, number], vel: [number, number], idx: number) {
@@ -32,7 +35,7 @@ export default class Boid {
   }
 
   limitVelocity () : void {
-    const vlim = 3
+    const vlim = 20
     const velMagnitude = Math.sqrt(this.vel_[0] * this.vel_[0] + this.vel_[1] * this.vel_[1])
     if (velMagnitude > vlim) {
       this.vel_[0] = (this.vel_[0] / velMagnitude) * vlim
@@ -43,8 +46,11 @@ export default class Boid {
   applyAcceleration (acc: [number, number]) : void {
     this.vel_[0] += acc[0]
     this.vel_[1] += acc[1]
+    this.limitVelocity()
+    const bound = this.boundRule_.apply(this, 1250, 450)
+    this.vel_[0] += bound[0]
+    this.vel_[1] += bound[1]
     this.pos_[0] += this.vel_[0]
     this.pos_[1] += this.vel_[1]
-    this.limitVelocity()
   }
 }

@@ -3,6 +3,7 @@ import IRule from './rules/IRule'
 import CohesionRule from './rules/CohesionRule'
 import AlignmentRule from './rules/AlignmentRule'
 import SeparationRule from './rules/SeparationRule'
+import BoundRule from './rules/BoundRule'
 
 export default class Flock {
   public boids_: Boid[]
@@ -14,21 +15,21 @@ export default class Flock {
     // this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
     this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
     this.boids_ = []
-    // for (let i = 0; i < size; ++i) {
-    //   this.boids_.push(new Boid(
-    //     [Math.random() * 1250, Math.random() * 500],
-    //     [Math.random(), Math.random()],
-    //     i)
-    //   )
-    // }
+    for (let i = 0; i < size; ++i) {
+      this.boids_.push(new Boid(
+        [Math.random() * 1250, Math.random() * 500],
+        [Math.random(), Math.random()],
+        i)
+      )
+    }
     this.boids_.push(new Boid([350, 350], [1, 1], 0))
     this.boids_.push(new Boid([400, 350], [-1, 1], 1))
     this.boids_.push(new Boid([350, 400], [1, -1], 2))
     this.boids_.push(new Boid([400, 400], [-1, -1], 3))
 
-    this.boids_.push(new Boid([50, 50], [1, 1], 0))
-    this.boids_.push(new Boid([100, 50], [-1, 1], 1))
-    this.boids_.push(new Boid([50, 100], [1, -1], 2))
+    // this.boids_.push(new Boid([50, 50], [1, 1], 0))
+    // this.boids_.push(new Boid([100, 50], [-1, 1], 1))
+    // this.boids_.push(new Boid([50, 100], [1, -1], 2))
     // this.boids_.push(new Boid([100, 100], [-1, -1], 3))
   }
 
