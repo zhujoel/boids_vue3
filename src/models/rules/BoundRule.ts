@@ -1,4 +1,3 @@
-import IRule from './IRule'
 import Boid from '../Boid'
 import Point from '../Point'
 

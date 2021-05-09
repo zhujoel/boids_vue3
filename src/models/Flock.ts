@@ -1,5 +1,4 @@
 import Boid from './Boid'
-import IRule from './rules/IRule'
 import CohesionRule from './rules/CohesionRule'
 import AlignmentRule from './rules/AlignmentRule'
 import SeparationRule from './rules/SeparationRule'
@@ -11,6 +10,7 @@ export default class Flock {
   public ali_ : AlignmentRule = new AlignmentRule()
   public coh_ : CohesionRule = new CohesionRule()
   public sep_ : SeparationRule = new SeparationRule()
+  public bound_ : BoundRule = new BoundRule()
   public size_: number
 
   constructor (size: number) {
