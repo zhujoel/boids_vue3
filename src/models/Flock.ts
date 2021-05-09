@@ -11,15 +11,25 @@ export default class Flock {
 
   constructor (size: number) {
     this.size_ = size
+    // this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
     this.rules_ = [new CohesionRule(), new AlignmentRule(), new SeparationRule()]
     this.boids_ = []
-    for (let i = 0; i < size; ++i) {
-      this.boids_.push(new Boid(
-        [Math.random() * 1250, Math.random() * 500],
-        [Math.random(), Math.random()],
-        i)
-      )
-    }
+    // for (let i = 0; i < size; ++i) {
+    //   this.boids_.push(new Boid(
+    //     [Math.random() * 1250, Math.random() * 500],
+    //     [Math.random(), Math.random()],
+    //     i)
+    //   )
+    // }
+    this.boids_.push(new Boid([350, 350], [1, 1], 0))
+    this.boids_.push(new Boid([400, 350], [-1, 1], 1))
+    this.boids_.push(new Boid([350, 400], [1, -1], 2))
+    this.boids_.push(new Boid([400, 400], [-1, -1], 3))
+
+    this.boids_.push(new Boid([50, 50], [1, 1], 0))
+    this.boids_.push(new Boid([100, 50], [-1, 1], 1))
+    this.boids_.push(new Boid([50, 100], [1, -1], 2))
+    // this.boids_.push(new Boid([100, 100], [-1, -1], 3))
   }
 
   move (mousePos: [number, number]) : void {
@@ -32,8 +42,8 @@ export default class Flock {
         acceleration[1] += rule.mag_ * ruleAcc[1]
       })
       // tendency away from mouse position
-      acceleration[0] += (((mousePos[0] - boid.pos_[0]) / 100))
-      acceleration[1] += (((mousePos[1] - boid.pos_[1]) / 100))
+      // acceleration[0] += (((mousePos[0] - boid.pos_[0]) / 100))
+      // acceleration[1] += (((mousePos[1] - boid.pos_[1]) / 100))
 
       const newBoid = boid.clone()
       newBoid.applyAcceleration(acceleration)
