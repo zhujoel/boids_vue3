@@ -28,7 +28,7 @@ export default class Boid {
   }
 
   limitVelocity () : void {
-    const vlim = 15
+    const vlim = 5
     const velMag = this.vel_.norm2()
     if (velMag > vlim) {
       this.vel_.divS(velMag).multS(vlim)
