@@ -40,7 +40,7 @@ export default class HelloWorld extends Vue {
         flock.move([this.mouseX, this.mouseY])
         context.clearRect(0, 0, 1250, 500)
         flock.boids_.forEach(boid => {
-          context.fillRect(boid.pos_[0], boid.pos_[1], 2, 2)
+          context.fillRect(boid.pos_.x_, boid.pos_.y_, 2, 2)
         })
       }
       requestAnimationFrame(tick)

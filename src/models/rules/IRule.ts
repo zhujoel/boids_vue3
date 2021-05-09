@@ -1,4 +1,5 @@
 import Boid from '../Boid'
+import Point from '../Point'
 
 export default abstract class IRule {
   readonly name_: string
@@ -18,9 +19,9 @@ export default abstract class IRule {
 
   isIn (current: Boid, other: Boid) : boolean {
     return current !== other &&
-      current.distance(other) < this.dist_ &&
+      current.pos_.dist(other.pos_) < this.dist_ &&
       current.inView(other, this.angle_)
   }
 
-  abstract apply (current: Boid, neighbours: Boid[]) : [number, number]
+  abstract apply (current: Boid, neighbours: Boid[]) : Point
 }

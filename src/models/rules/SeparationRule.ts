@@ -1,18 +1,19 @@
 import IRule from './IRule'
 import Boid from '../Boid'
+import Point from '../Point'
 
 export default class SeparationRule extends IRule {
   constructor () {
     super('Separation', 0.5, 5, 5)
   }
 
-  apply (current: Boid, boids: Boid[]) : [number, number] {
-    const rule: [number, number] = [0, 0]
+  apply (current: Boid, boids: Boid[]) : Point {
+    const rule: Point = new Point(0, 0)
 
     boids.forEach(b => {
       if (this.isIn(current, b)) {
-        rule[0] = rule[0] - (b.pos_[0] - current.pos_[0])
-        rule[1] = rule[1] - (b.pos_[1] - current.pos_[1])
+        rule.x_ = rule.x_ - (b.pos_.x_ - current.pos_.x_)
+        rule.y_ = rule.y_ - (b.pos_.y_ - current.pos_.y_)
       }
     })
 
