@@ -12,9 +12,11 @@ import * as PIXI from 'pixi.js'
 
 export default class MainWindow extends Vue {
   start = false
+  width = window.innerWidth * 0.9
+  height = window.innerHeight * 0.9
 
   mounted () : void {
-    this.animate(new Flock(150))
+    this.animate(new Flock(150, this.width, this.height))
   }
 
   startStop () : void {
@@ -22,7 +24,7 @@ export default class MainWindow extends Vue {
   }
 
   animate (flock : Flock) : void {
-    const app = new PIXI.Application({ width: 1250, height: 800 })
+    const app = new PIXI.Application({ width: this.width, height: this.height })
     const main = document.getElementById('canvas') as HTMLDivElement
     main.appendChild(app.view)
     flock.boids_.forEach(boid => {

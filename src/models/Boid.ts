@@ -2,27 +2,25 @@ import Point from './Point'
 import * as PIXI from 'pixi.js'
 
 export default class Boid {
+  public static MAX_VEL = 5
   public pos_: Point
   // graphics include position (x, y)
   // we compute position directly from graphics
   public graphics_ = new PIXI.Graphics()
+  public color_: number
   public vel_: Point
 
-  constructor (pos: Point, vel: Point) {
+  constructor (pos: Point, vel: Point, color = 0xFF0000) {
     this.pos_ = pos
-
-    /* draw */
-    /* end draw */
     this.graphics_.x = pos.x_
     this.graphics_.y = pos.y_
-    this.graphics_.beginFill(0xFFFF00)
-    this.graphics_.lineStyle(5, 0xFF0000)
-    this.graphics_.drawRect(pos.x_, pos.y_, 2, 5)
     this.vel_ = vel
+    this.color_ = color
+    this.draw()
   }
 
   // checks for distance and angle of view.
-  // the angle parameter goes from 0 to 360.
+  // the angle parameter goes from 0 to PI
   inView (other: Boid, angle : number) : boolean {
     if (this.vel_.isNull()) return false
     const center : Point = this.vel_.clone()
@@ -33,11 +31,18 @@ export default class Boid {
     return Math.acos(cosAlpha) <= angle
   }
 
+  draw () : void {
+    this.graphics_.clear()
+    this.graphics_.lineStyle(1, this.color_)
+      .moveTo(this.pos_.x_, this.pos_.y_)
+      .lineTo(this.pos_.x_ + this.vel_.x_ * 3, this.pos_.y_ + this.vel_.y_ * 3)
+      .closePath()
+  }
+
   limitVelocity () : void {
-    const vlim = 5
     const velMag = this.vel_.norm2()
-    if (velMag > vlim) {
-      this.vel_.divS(velMag).multS(vlim)
+    if (velMag > Boid.MAX_VEL) {
+      this.vel_.divS(velMag).multS(Boid.MAX_VEL)
     }
   }
 }
