@@ -4,7 +4,7 @@ import Point from '../Point'
 
 export default class CohesionRule extends IRule {
   constructor () {
-    super('Cohesion', 0.5, 75, 360)
+    super('Cohesion', 0.5, 100, 180)
   }
 
   apply (current: Boid, boids: Boid[]) : void {

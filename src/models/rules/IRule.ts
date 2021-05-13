@@ -20,7 +20,7 @@ export default abstract class IRule {
     // return current !== other &&
     //   current.pos_.dist(other.pos_) < this.dist_ &&
     //   current.inView(other, this.angle_)
-    return current.pos_.dist(other.pos_) < this.dist_
+    return current.pos_.dist(other.pos_) < this.dist_ && current.inView(other, this.angle_)
   }
 
   abstract apply (current: Boid, neighbours: Boid[]) : void

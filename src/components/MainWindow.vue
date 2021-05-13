@@ -1,6 +1,7 @@
 <template>
   <div id="main">
     <button @click="startStop()">Click !</button>
+    <div id="canvas"></div>
   </div>
 </template>
 
@@ -13,7 +14,7 @@ export default class MainWindow extends Vue {
   start = false
 
   mounted () : void {
-    this.animate(new Flock(100))
+    this.animate(new Flock(150))
   }
 
   startStop () : void {
@@ -22,15 +23,13 @@ export default class MainWindow extends Vue {
 
   animate (flock : Flock) : void {
     const app = new PIXI.Application({ width: 1250, height: 800 })
-    const main = document.getElementById('main') as HTMLDivElement
+    const main = document.getElementById('canvas') as HTMLDivElement
     main.appendChild(app.view)
     flock.boids_.forEach(boid => {
       app.stage.addChild(boid.graphics_)
     })
 
     app.ticker.add(() => {
-      // this.app.stage.getChildAt(0).x += 5
-      // this.flock.boids_[0].graphics.x += 5
       if (this.start) {
         flock.move()
       }

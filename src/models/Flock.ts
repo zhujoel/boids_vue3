@@ -33,7 +33,6 @@ export default class Flock {
   }
 
   move () : void {
-    const newBoids : Boid[] = []
     this.boids_.forEach(boid => {
       this.coh_.apply(boid, this.boids_)
       this.sep_.apply(boid, this.boids_)

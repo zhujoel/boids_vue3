@@ -4,7 +4,7 @@ import Point from '../Point'
 
 export default class AlignmentRule extends IRule {
   constructor () {
-    super('Alignment', 0.5, 75, 360)
+    super('Alignment', 0.5, 50, 180)
   }
 
   apply (current: Boid, boids: Boid[]) : void {

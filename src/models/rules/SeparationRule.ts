@@ -4,7 +4,7 @@ import Point from '../Point'
 
 export default class SeparationRule extends IRule {
   constructor () {
-    super('Separation', 0.5, 20, 360)
+    super('Separation', 0.5, 15, 360)
   }
 
   apply (current: Boid, boids: Boid[]) : void {
