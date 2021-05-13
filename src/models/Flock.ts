@@ -25,16 +25,11 @@ export default class Flock {
   }
 
   drawBoid (boid: Boid) : void {
-    const angle = Math.atan2(boid.vel_.y_, boid.vel_.x_)
-    // boid.graphics_.translate(boid.pos_.x_, boid.pos_.y_)
-    // boid.graphics_.rotate(angle)
-    // boid.graphics_.translate(-boid.pos_.x_, -boid.pos_.y_)
-    // boid.graphics_.fillStyle = '#558cf4'
     boid.graphics_.clear()
     boid.graphics_.lineStyle(1, 0xff0000, 1)
-    boid.graphics_.moveTo(boid.pos_.x_, boid.pos_.y_)
-    boid.graphics_.lineTo(boid.pos_.x_ + boid.vel_.x_ * 5, boid.pos_.y_ + boid.vel_.y_ * 5)
-    boid.graphics_.closePath()
+      .moveTo(boid.pos_.x_, boid.pos_.y_)
+      .lineTo(boid.pos_.x_ + boid.vel_.x_ * 3, boid.pos_.y_ + boid.vel_.y_ * 3)
+      .closePath()
   }
 
   move () : void {
@@ -44,7 +39,7 @@ export default class Flock {
       this.sep_.apply(boid, this.boids_)
       this.ali_.apply(boid, this.boids_)
       boid.limitVelocity()
-      this.bound_.apply(boid, 1250, 500)
+      this.bound_.apply(boid, 625, 400)
       boid.pos_.addP(boid.vel_)
       boid.graphics_.position.x = boid.pos_.x_
       boid.graphics_.position.y = boid.pos_.y_
