@@ -4,11 +4,9 @@ import * as PIXI from 'pixi.js'
 export default class Boid {
   public readonly MAX_VEL
   public pos_: Point
-  // graphics include position (x, y)
-  // we compute position directly from graphics
+  public vel_: Point
   public graphics_ = new PIXI.Graphics()
   public color_: number
-  public vel_: Point
 
   constructor (pos: Point, vel: Point, MAX_VEL = 3, color = 0xFF0000) {
     this.pos_ = pos

@@ -35,13 +35,13 @@ export default class MainWindow extends Vue {
 
   newBoids () : void {
     if (this.flock !== undefined) {
-      this.flock.createRandomBoids(this.flock.boids_, 50, 3, 0x00FF00)
+      this.flock.createRandomBoids(this.flock.boids_, 50, 2, 0x0000FF)
     }
   }
 
   newPredator () : void {
     if (this.flock !== undefined) {
-      this.flock.createRandomBoids(this.flock.predators_, 1, 2, 0xFF0000)
+      this.flock.createRandomBoids(this.flock.predators_, 1, 1, 0xFF0000)
     }
   }
 

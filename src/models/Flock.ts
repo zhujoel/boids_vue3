@@ -14,6 +14,7 @@ export default class Flock {
 
   public predators_: Boid[]
   public boids_: Boid[]
+  public others_: Boid[]
 
   constructor (size: number, width: number, height: number) {
     this.app_ = new PIXI.Application({
@@ -26,8 +27,10 @@ export default class Flock {
     this.height_ = height
     this.boids_ = []
     this.predators_ = []
-    this.createRandomBoids(this.boids_, size, 3, 0x0000FF)
-    this.createRandomBoids(this.predators_, 3, 2, 0xFF0000)
+    this.others_ = []
+    this.createRandomBoids(this.boids_, size, 2, 0x0000FF)
+    this.createRandomBoids(this.predators_, 3, 1, 0xFF0000)
+    this.createRandomBoids(this.others_, 30, 1.5, 0x00FF00)
   }
 
   createRandomBoids (list : Boid[], amount = 1, MAX_VEL = 3, color = 0xFFFFFF) : void {
@@ -48,6 +51,10 @@ export default class Flock {
     this.app_.stage.removeChildren()
   }
 
+  randomNum (min = 0, max = 1) : number {
+    return Math.round(min - 0.5 + Math.random() * (max - min + 1))
+  }
+
   move () : void {
     this.predators_.forEach(pred => {
       // attraction to preys, negative magnitude reverses the behaviour of the rule
@@ -64,11 +71,21 @@ export default class Flock {
       Separation.apply(boid, this.boids_, 15, Math.PI, 0.05)
       Alignment.apply(boid, this.boids_, 100, Math.PI * 0.3, 0.05)
       // run away from predators
-      Separation.apply(boid, this.predators_, 50, Math.PI * 0.4, 0.2)
+      Separation.apply(boid, this.predators_, this.randomNum(1, 35), Math.PI * 0.4, 0.2)
       boid.limitVelocity()
       BoundApply.apply(boid, 1, this.width_ / 2, this.height_ / 2)
       boid.pos_.addP(boid.vel_)
       boid.draw()
+    })
+
+    this.others_.forEach(other => {
+      Cohesion.apply(other, this.others_, 100, Math.PI * 0.3, 0.005)
+      Separation.apply(other, this.others_, 15, Math.PI, 0.05)
+      Alignment.apply(other, this.others_, 100, Math.PI * 0.3, 0.05)
+      other.limitVelocity()
+      BoundApply.apply(other, 1, this.width_ / 2, this.height_ / 2)
+      other.pos_.addP(other.vel_)
+      other.draw()
     })
   }
 }
