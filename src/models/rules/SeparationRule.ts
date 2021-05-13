@@ -1,21 +1,18 @@
-import IRule from './IRule'
 import Boid from '../Boid'
 import Point from '../Point'
 
-export default class SeparationRule extends IRule {
-  apply (current: Boid, boids: Boid[]) : void {
-    const rule: Point = new Point(0, 0)
+export function apply (current: Boid, boids: Boid[], dist: number, angle: number, mag: number) : void {
+  const rule: Point = new Point(0, 0)
 
-    boids.forEach(b => {
-      if (current !== b) {
-        if (this.isIn(current, b)) {
-          rule.x_ += (current.pos_.x_ - b.pos_.x_)
-          rule.y_ += (current.pos_.y_ - b.pos_.y_)
-        }
+  boids.forEach(b => {
+    if (current !== b) {
+      if (current.pos_.dist(b.pos_) < dist && current.inView(b, angle)) {
+        rule.x_ += (current.pos_.x_ - b.pos_.x_)
+        rule.y_ += (current.pos_.y_ - b.pos_.y_)
       }
-    })
+    }
+  })
 
-    rule.multS(this.mag_)
-    current.vel_.addP(rule)
-  }
+  rule.multS(mag)
+  current.vel_.addP(rule)
 }
