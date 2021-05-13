@@ -1,17 +1,24 @@
 import Point from './Point'
-import BoundRule from './rules/BoundRule'
+import * as PIXI from 'pixi.js'
 
 export default class Boid {
   public pos_: Point
+  // graphics include position (x, y)
+  // we compute position directly from graphics
+  public graphics_ = new PIXI.Graphics()
   public vel_: Point
 
   constructor (pos: Point, vel: Point) {
     this.pos_ = pos
-    this.vel_ = vel
-  }
 
-  clone () : Boid {
-    return new Boid(this.pos_.clone(), this.vel_.clone())
+    /* draw */
+    /* end draw */
+    this.graphics_.x = pos.x_
+    this.graphics_.y = pos.y_
+    this.graphics_.beginFill(0xFFFF00)
+    this.graphics_.lineStyle(5, 0xFF0000)
+    this.graphics_.drawRect(pos.x_, pos.y_, 2, 5)
+    this.vel_ = vel
   }
 
   // checks for distance and angle of view.
@@ -28,19 +35,10 @@ export default class Boid {
   }
 
   limitVelocity () : void {
-    const vlim = 5
+    const vlim = 10
     const velMag = this.vel_.norm2()
     if (velMag > vlim) {
       this.vel_.divS(velMag).multS(vlim)
     }
-  }
-
-  applyAcceleration (acc: Point) : void {
-    this.vel_.addP(acc)
-    this.limitVelocity()
-    this.pos_.addP(this.vel_)
-    // const bound = this.boundRule_.apply(this, 1250, 450)
-    // this.vel_[0] += bound[0]
-    // this.vel_[1] += bound[1]
   }
 }

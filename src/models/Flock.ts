@@ -22,30 +22,33 @@ export default class Flock {
         new Point(Math.random() * 10 - 5, Math.random() * 10 - 5))
       )
     }
-    // this.boids_.push(new Boid(new Point(350, 350), new Point(1, 1)))
-    // this.boids_.push(new Boid(new Point(400, 350), new Point(-1, 1)))
-    // this.boids_.push(new Boid(new Point(350, 400), new Point(1, -1)))
-    // this.boids_.push(new Boid(new Point(400, 400), new Point(-1, -1)))
-
-    // this.boids_.push(new Boid([50, 50], [1, 1], 0))
-    // this.boids_.push(new Boid([100, 50], [-1, 1], 1))
-    // this.boids_.push(new Boid([50, 100], [1, -1], 2))
-    // this.boids_.push(new Boid([100, 100], [-1, -1], 3))
   }
 
-  move (mousePos: [number, number]) : void {
+  drawBoid (boid: Boid) : void {
+    const angle = Math.atan2(boid.vel_.y_, boid.vel_.x_)
+    // boid.graphics_.translate(boid.pos_.x_, boid.pos_.y_)
+    // boid.graphics_.rotate(angle)
+    // boid.graphics_.translate(-boid.pos_.x_, -boid.pos_.y_)
+    // boid.graphics_.fillStyle = '#558cf4'
+    boid.graphics_.clear()
+    boid.graphics_.lineStyle(1, 0xff0000, 1)
+    boid.graphics_.moveTo(boid.pos_.x_, boid.pos_.y_)
+    boid.graphics_.lineTo(boid.pos_.x_ + boid.vel_.x_ * 5, boid.pos_.y_ + boid.vel_.y_ * 5)
+    boid.graphics_.closePath()
+  }
+
+  move () : void {
     const newBoids : Boid[] = []
     this.boids_.forEach(boid => {
-      // const newBoid = boid.clone()
       this.coh_.apply(boid, this.boids_)
       this.sep_.apply(boid, this.boids_)
       this.ali_.apply(boid, this.boids_)
       boid.limitVelocity()
       this.bound_.apply(boid, 1250, 500)
-
       boid.pos_.addP(boid.vel_)
-      // newBoids.push(newBoid)
+      boid.graphics_.position.x = boid.pos_.x_
+      boid.graphics_.position.y = boid.pos_.y_
+      this.drawBoid(boid)
     })
-    // this.boids_ = newBoids
   }
 }
