@@ -1,3 +1,4 @@
+import * as PIXI from 'pixi.js'
 import Point from './Point'
 import Boid from './Boid'
 import * as Cohesion from './rules/CohesionRule'
@@ -6,8 +7,8 @@ import * as Separation from './rules/SeparationRule'
 import * as BoundApply from './rules/BoundRule'
 
 export default class Flock {
-  // flock
-  public size_: number
+  public app_: PIXI.Application
+
   public width_: number
   public height_: number
 
@@ -15,26 +16,36 @@ export default class Flock {
   public boids_: Boid[]
 
   constructor (size: number, width: number, height: number) {
-    this.size_ = size
+    this.app_ = new PIXI.Application({
+      width: width,
+      height: height,
+      backgroundColor: 0xeff7fd
+    })
+
     this.width_ = width
     this.height_ = height
     this.boids_ = []
-    for (let i = 0; i < size; ++i) {
-      this.boids_.push(new Boid(
-        new Point(Math.random() * this.width_, Math.random() * this.height_),
-        new Point(1, 1),
-        0x0000FF)
-      )
-    }
-
     this.predators_ = []
-    for (let i = 0; i < 3; ++i) {
-      this.predators_.push(new Boid(
-        new Point(Math.random() * this.width_, Math.random() * this.height_),
-        new Point(1, 1),
-        0xFF0000)
-      )
+    this.createRandomBoids(this.boids_, size, 3, 0x0000FF)
+    this.createRandomBoids(this.predators_, 3, 2, 0xFF0000)
+  }
+
+  createRandomBoids (list : Boid[], amount = 1, MAX_VEL = 3, color = 0xFFFFFF) : void {
+    for (let i = 0; i < amount; ++i) {
+      const b = new Boid(
+        new Point(Math.random() * this.width_ / 2, Math.random() * this.height_ / 2),
+        new Point(Math.random() * 6 - 3, Math.random() * 6 - 3),
+        MAX_VEL,
+        color)
+      list.push(b)
+      this.app_.stage.addChild(b.graphics_)
     }
+  }
+
+  clear () : void {
+    this.boids_ = []
+    this.predators_ = []
+    this.app_.stage.removeChildren()
   }
 
   move () : void {

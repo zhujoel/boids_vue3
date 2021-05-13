@@ -2,7 +2,7 @@ import Point from './Point'
 import * as PIXI from 'pixi.js'
 
 export default class Boid {
-  public readonly MAX_VEL = 3
+  public readonly MAX_VEL
   public pos_: Point
   // graphics include position (x, y)
   // we compute position directly from graphics
@@ -10,11 +10,12 @@ export default class Boid {
   public color_: number
   public vel_: Point
 
-  constructor (pos: Point, vel: Point, color = 0xFF0000) {
+  constructor (pos: Point, vel: Point, MAX_VEL = 3, color = 0xFF0000) {
     this.pos_ = pos
     this.graphics_.x = pos.x_
     this.graphics_.y = pos.y_
     this.vel_ = vel
+    this.MAX_VEL = MAX_VEL
     this.color_ = color
     this.draw()
   }
