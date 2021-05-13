@@ -1,26 +1,29 @@
 import Boid from '../Boid'
-import Point from '../Point'
 
 export default class BoundRule {
-  readonly name_: string
-  constructor () {
-    this.name_ = 'Bound'
+  // determines how hard a boid should turn around when reaching a boundary
+  readonly turn_ : number
+  constructor (turn: number) {
+    this.turn_ = turn
   }
 
-  apply (current: Boid, Xmax: number, Ymax: number) : void {
+  apply (current: Boid,
+    Xmax: number,
+    Ymax: number,
+    Xmin = 0,
+    Ymin = 0) : void {
     const x = current.pos_.x_
     const y = current.pos_.y_
-    const turnFactor = 1
 
-    if (x < 0) {
-      current.vel_.x_ += turnFactor
+    if (x < Xmin) {
+      current.vel_.x_ += this.turn_
     } else if (x > Xmax) {
-      current.vel_.x_ -= turnFactor
+      current.vel_.x_ -= this.turn_
     }
-    if (y < 0) {
-      current.vel_.y_ += turnFactor
+    if (y < Ymin) {
+      current.vel_.y_ += this.turn_
     } else if (y > Ymax) {
-      current.vel_.y_ -= turnFactor
+      current.vel_.y_ -= this.turn_
     }
   }
 }

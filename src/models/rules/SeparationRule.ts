@@ -3,13 +3,8 @@ import Boid from '../Boid'
 import Point from '../Point'
 
 export default class SeparationRule extends IRule {
-  constructor () {
-    super('Separation', 0.5, 15, 360)
-  }
-
   apply (current: Boid, boids: Boid[]) : void {
     const rule: Point = new Point(0, 0)
-    const avoidFactor = 0.05 // Adjust velocity by this %
 
     boids.forEach(b => {
       if (current !== b) {
@@ -20,7 +15,7 @@ export default class SeparationRule extends IRule {
       }
     })
 
-    rule.multS(avoidFactor)
+    rule.multS(this.mag_)
     current.vel_.addP(rule)
   }
 }

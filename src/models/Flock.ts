@@ -7,10 +7,10 @@ import Point from './Point'
 
 export default class Flock {
   public boids_: Boid[]
-  public ali_ : AlignmentRule = new AlignmentRule()
-  public coh_ : CohesionRule = new CohesionRule()
-  public sep_ : SeparationRule = new SeparationRule()
-  public bound_ : BoundRule = new BoundRule()
+  public ali_ : AlignmentRule = new AlignmentRule(0.05, 100, Math.PI * 0.3)
+  public coh_ : CohesionRule = new CohesionRule(0.005, 100, Math.PI * 0.3)
+  public sep_ : SeparationRule = new SeparationRule(0.05, 15, Math.PI)
+  public bound_ : BoundRule = new BoundRule(1)
   public size_: number
 
   constructor (size: number) {
