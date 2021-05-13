@@ -16,7 +16,7 @@ export default class MainWindow extends Vue {
   height = window.innerHeight * 0.9
 
   mounted () : void {
-    this.animate(new Flock(150, this.width, this.height))
+    this.animate(new Flock(100, this.width, this.height))
   }
 
   startStop () : void {
@@ -24,11 +24,18 @@ export default class MainWindow extends Vue {
   }
 
   animate (flock : Flock) : void {
-    const app = new PIXI.Application({ width: this.width, height: this.height })
+    const app = new PIXI.Application({
+      width: this.width,
+      height: this.height,
+      backgroundColor: 0xeff7fd
+    })
     const main = document.getElementById('canvas') as HTMLDivElement
     main.appendChild(app.view)
     flock.boids_.forEach(boid => {
       app.stage.addChild(boid.graphics_)
+    })
+    flock.predators_.forEach(pred => {
+      app.stage.addChild(pred.graphics_)
     })
 
     app.ticker.add(() => {

@@ -2,7 +2,7 @@ import Point from './Point'
 import * as PIXI from 'pixi.js'
 
 export default class Boid {
-  public static MAX_VEL = 5
+  public static MAX_VEL = 3
   public pos_: Point
   // graphics include position (x, y)
   // we compute position directly from graphics
@@ -32,8 +32,16 @@ export default class Boid {
   }
 
   draw () : void {
+    this.graphics_.position.x = this.pos_.x_
+    this.graphics_.position.y = this.pos_.y_
     this.graphics_.clear()
-    this.graphics_.lineStyle(1, this.color_)
+    // circle
+    // this.graphics_.lineStyle(0)
+    //   .beginFill(this.color_, 2)
+    //   .drawCircle(this.graphics_.x, this.graphics_.y, 2)
+    //   .endFill()
+    // line
+    this.graphics_.lineStyle(3, this.color_)
       .moveTo(this.pos_.x_, this.pos_.y_)
       .lineTo(this.pos_.x_ + this.vel_.x_ * 3, this.pos_.y_ + this.vel_.y_ * 3)
       .closePath()
