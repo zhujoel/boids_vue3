@@ -1,9 +1,9 @@
+import Point from './Point'
 import Boid from './Boid'
 import * as Cohesion from './rules/CohesionRule'
 import * as Alignment from './rules/AlignmentRule'
 import * as Separation from './rules/SeparationRule'
 import * as BoundApply from './rules/BoundRule'
-import Point from './Point'
 
 export default class Flock {
   // flock

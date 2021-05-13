@@ -2,7 +2,7 @@ import Point from './Point'
 import * as PIXI from 'pixi.js'
 
 export default class Boid {
-  public static MAX_VEL = 3
+  public readonly MAX_VEL = 3
   public pos_: Point
   // graphics include position (x, y)
   // we compute position directly from graphics
@@ -49,8 +49,8 @@ export default class Boid {
 
   limitVelocity () : void {
     const velMag = this.vel_.norm2()
-    if (velMag > Boid.MAX_VEL) {
-      this.vel_.divS(velMag).multS(Boid.MAX_VEL)
+    if (velMag > this.MAX_VEL) {
+      this.vel_.divS(velMag).multS(this.MAX_VEL)
     }
   }
 }
