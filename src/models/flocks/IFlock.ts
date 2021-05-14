@@ -19,10 +19,6 @@ export default abstract class IFlock {
       MAX_VEL, color)
   }
 
-  randomNum (min = 0, max = 1) : number {
-    return Math.round(min - 0.5 + Math.random() * (max - min + 1))
-  }
-
   apply (boid: Boid) : void {
     boid.limitVelocity()
     this.applyOthers(boid)
