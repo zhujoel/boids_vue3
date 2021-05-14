@@ -4,10 +4,10 @@ import IFlock from './IFlock'
 
 export default class WallFlock extends IFlock {
   applyFlock (boid: Boid) : void {
-    Separation.apply(boid, this.boids_, 10, Math.PI, 0.2)
+    Separation.apply(boid, this.boids_, 10, Math.PI, 0.1)
   }
 
   move (): void {
-    const s = ''
+    // wall does not move
   }
 }

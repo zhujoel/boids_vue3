@@ -4,7 +4,7 @@
     <button @click="newPreys()">Add</button>
     <button @click="newPredator()">Add Predator</button>
     <button @click="clear()">Clear</button>
-    <div> Preys: {{this.preyNo}} | Predators: {{this.predatorNo}} | Neutral: {{this.neutralNo}}</div>
+    <div>Preys: {{this.preyNo}} | Predators: {{this.predatorNo}}</div>
     <div id="canvas"></div>
   </div>
 </template>
@@ -61,7 +61,6 @@ export default class MainWindow extends Vue {
     if (this.application !== undefined) {
       this.preyNo = this.application.preys_.boids_.length
       this.predatorNo = this.application.predators_.boids_.length
-      this.neutralNo = this.application.neutral_.boids_.length
     }
   }
 
