@@ -4,6 +4,7 @@
     <button @click="newPreys()">Add</button>
     <button @click="newPredator()">Add Predator</button>
     <button @click="clear()">Clear</button>
+    {{ this.instruction }}
     <div>Preys: {{this.preyNo}} | Predators: {{this.predatorNo}}</div>
     <div id="canvas"></div>
   </div>
@@ -18,10 +19,15 @@ export default class MainWindow extends Vue {
   start = false
   preyNo = 0
   predatorNo = 0
+  instruction = 'Click on the canvas to draw walls!'
   application: FlockApplication|undefined
 
   mounted () : void {
     MainApplication.setup(window.innerWidth * 0.9, window.innerHeight * 0.9)
+    MainApplication.interactions_.on('mousedown', () => {
+      this.instruction = ''
+    })
+
     const canvas = document.getElementById('canvas') as HTMLDivElement
     canvas.appendChild(MainApplication.app_.view)
     this.application = new FlockApplication()
