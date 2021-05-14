@@ -38,7 +38,7 @@ export default class FlockApplication {
         this.wall(e)
       }
     })
-    inter.on('mouseup', (e) => {
+    inter.on('mouseup', () => {
       this.down = false
     })
 
@@ -61,18 +61,17 @@ export default class FlockApplication {
   }
 
   wall (e: any) : void {
+    console.log(typeof e)
     const p = new Point(e.data.global.x, e.data.global.y)
     this.drawWall(p)
     this.walls_.boids_.push(new Boid(p.divS(2), new Point(0, 0), 0xFF0000))
   }
 
-  drawWall (p: Point) {
+  drawWall (p: Point) : void {
     const graphics = new PIXI.Graphics()
-    graphics.lineStyle(0) // draw a circle, set the lineStyle to zero so the circle doesn't have an outline
-    graphics.beginFill(0xDE3249, 1)
-    graphics.drawCircle(p.x_, p.y_, 2)
-    graphics.endFill()
-    console.log(this.preys_.others_[1].boids_.length)
+      .beginFill(0x000000, 1)
+      .drawCircle(p.x_, p.y_, 2)
+      .endFill()
     this.app_.stage.addChild(graphics)
   }
 
