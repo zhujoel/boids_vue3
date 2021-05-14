@@ -1,8 +1,8 @@
-import * as PIXI from 'pixi.js'
+import { Application, InteractionManager} from 'pixi.js'
 
 export default class MainApplication {
-  public static app_: PIXI.Application
-  public static interactions_: PIXI.InteractionManager
+  public static app_: Application
+  public static interactions_: InteractionManager
   public static width_: number
   public static height_: number
   public static down = false
@@ -12,7 +12,7 @@ export default class MainApplication {
     MainApplication.height_ = height
 
     // canvas
-    MainApplication.app_ = new PIXI.Application({
+    MainApplication.app_ = new Application({
       width: width,
       height: height,
       backgroundColor: 0xeff7fd,
@@ -21,7 +21,7 @@ export default class MainApplication {
     })
 
     // mouse events
-    MainApplication.interactions_ = new PIXI.InteractionManager(MainApplication.app_.renderer)
+    MainApplication.interactions_ = new InteractionManager(MainApplication.app_.renderer)
     MainApplication.interactions_.on('mousedown', () => {
       MainApplication.down = true
     })
