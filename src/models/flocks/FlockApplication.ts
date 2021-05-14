@@ -1,42 +1,21 @@
 import MainApplication from '../MainApplication'
-import IFlock from './IFlock'
 import PredatorFlock from './PredatorFlock'
 import PreyFlock from './PreyFlock'
 import WallFlock from './WallFlock'
 
 export default class FlockApplication {
-  public predators_: IFlock
-  public preys_: IFlock
-  public walls_: IFlock
+  public predators_ = new PredatorFlock()
+  public preys_ = new PreyFlock()
+  public walls_ = new WallFlock()
 
   constructor () {
-    this.predators_ = new PredatorFlock()
-    this.preys_ = new PreyFlock()
-    this.walls_ = new WallFlock()
-
     this.predators_.others_.push(this.preys_)
     this.predators_.others_.push(this.walls_)
     this.preys_.others_.push(this.predators_)
     this.preys_.others_.push(this.walls_)
 
-    this.createPredators(3, 2, 0xFF0000)
-    this.createPreys(200, 3, 0x0000FF)
-  }
-
-  createPredators (amount = 1, MAX_VEL = 3, color = 0xFFFFFF) : void {
-    for (let i = 0; i < amount; ++i) {
-      const b = this.predators_.createRandomBoid(MAX_VEL, color)
-      this.predators_.boids_.push(b)
-      MainApplication.app_.stage.addChild(b.graphics_)
-    }
-  }
-
-  createPreys (amount = 1, MAX_VEL = 3, color = 0xFFFFFF) : void {
-    for (let i = 0; i < amount; ++i) {
-      const b = this.preys_.createRandomBoid(MAX_VEL, color)
-      this.preys_.boids_.push(b)
-      MainApplication.app_.stage.addChild(b.graphics_)
-    }
+    this.predators_.createRandomBoids(3, 2, 0xFF0000)
+    this.preys_.createRandomBoids(200, 3, 0x0000FF)
   }
 
   clear () : void {

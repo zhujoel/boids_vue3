@@ -12,6 +12,14 @@ export default abstract class IFlock {
     this.others_ = []
   }
 
+  createRandomBoids (amount = 1, MAX_VEL = 3, color = 0xFFFFFF) : void {
+    for (let i = 0; i < amount; ++i) {
+      const b = this.createRandomBoid(MAX_VEL, color)
+      this.boids_.push(b)
+      MainApplication.app_.stage.addChild(b.graphics_)
+    }
+  }
+
   createRandomBoid (MAX_VEL = 3, color = 0xFFFFFF) : Boid {
     return new Boid(
       new Point(Math.random() * MainApplication.width_ / 2, Math.random() * MainApplication.height_ / 2),

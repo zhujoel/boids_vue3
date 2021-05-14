@@ -9,16 +9,17 @@ export default class WallFlock extends IFlock {
   constructor () {
     super()
 
-    MainApplication.interactions_.on('mouseup', (e) => {
-      if (MainApplication.down) {
-        this.wall(e)
-      }
-    })
-    MainApplication.interactions_.on('mousemove', (e) => {
-      if (MainApplication.down) {
-        this.wall(e)
-      }
-    })
+    MainApplication.interactions_
+      .on('mouseup', (e) => {
+        if (MainApplication.down) {
+          this.wall(e)
+        }
+      })
+      .on('mousemove', (e) => {
+        if (MainApplication.down) {
+          this.wall(e)
+        }
+      })
   }
 
   wall (e: InteractionEvent) : void {
