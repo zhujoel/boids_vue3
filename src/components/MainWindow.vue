@@ -42,14 +42,14 @@ export default class MainWindow extends Vue {
 
   newPreys () : void {
     if (this.application !== undefined) {
-      this.application.preys_.createRandomBoids(50, 2, 0x0000FF)
+      this.application.preys_.createRandomBoids(50, 2, 'Line', 0x0000FF)
       this.boidsNo()
     }
   }
 
   newPredator () : void {
     if (this.application !== undefined) {
-      this.application.predators_.createRandomBoids(1, 1, 0xFF0000)
+      this.application.predators_.createRandomBoids(1, 1, 'Circle', 0xFF0000)
       this.boidsNo()
     }
   }

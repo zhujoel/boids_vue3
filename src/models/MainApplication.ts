@@ -1,4 +1,4 @@
-import { Application, InteractionManager} from 'pixi.js'
+import { Application, InteractionManager } from 'pixi.js'
 
 export default class MainApplication {
   public static app_: Application

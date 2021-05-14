@@ -14,8 +14,8 @@ export default class FlockApplication {
     this.preys_.others_.push(this.predators_)
     this.preys_.others_.push(this.walls_)
 
-    this.predators_.createRandomBoids(3, 2, 0xFF0000)
-    this.preys_.createRandomBoids(200, 3, 0x0000FF)
+    this.predators_.createRandomBoids(3, 2, 'Circle', 0xFF0000)
+    this.preys_.createRandomBoids(200, 3, 'Line', 0x0000FF)
   }
 
   clear () : void {
