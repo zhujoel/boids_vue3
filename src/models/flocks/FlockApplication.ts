@@ -1,52 +1,32 @@
 import * as PIXI from 'pixi.js'
-import Boid from './Boid'
-import IFlock from './flocks/IFlock'
-import PredatorFlock from './flocks/PredatorFlock'
-import PreyFlock from './flocks/PreyFlock'
-import WallFlock from './flocks/WallFlock'
-import Point from './Point'
+import Boid from '../Boid'
+import MainApplication from '../MainApplication'
+import Point from '../Point'
+import IFlock from './IFlock'
+import PredatorFlock from './PredatorFlock'
+import PreyFlock from './PreyFlock'
+import WallFlock from './WallFlock'
 
 export default class FlockApplication {
-  public app_: PIXI.Application
-
-  public width_: number
-  public height_: number
-
   public predators_: IFlock
   public preys_: IFlock
-
-  public down = false
-
   public walls_: IFlock
 
-  constructor (width: number, height: number) {
-    this.app_ = new PIXI.Application({
-      width: width,
-      height: height,
-      backgroundColor: 0xeff7fd,
-      antialias: false,
-      autoDensity: false
-    })
-    const inter = new PIXI.InteractionManager(this.app_.renderer)
-    inter.on('mousedown', (e) => {
-      this.down = true
-      this.wall(e)
-    })
-    inter.on('mousemove', (e) => {
-      if (this.down) {
+  constructor () {
+    MainApplication.interactions_.on('mouseup', (e) => {
+      if (MainApplication.down) {
         this.wall(e)
       }
     })
-    inter.on('mouseup', () => {
-      this.down = false
+    MainApplication.interactions_.on('mousemove', (e) => {
+      if (MainApplication.down) {
+        this.wall(e)
+      }
     })
 
-    this.width_ = width
-    this.height_ = height
-
-    this.predators_ = new PredatorFlock(width, height)
-    this.preys_ = new PreyFlock(width, height)
-    this.walls_ = new WallFlock(width, height)
+    this.predators_ = new PredatorFlock()
+    this.preys_ = new PreyFlock()
+    this.walls_ = new WallFlock()
 
     this.predators_.others_.push(this.preys_)
     this.predators_.others_.push(this.walls_)
@@ -68,14 +48,14 @@ export default class FlockApplication {
       .beginFill(0x000000, 1)
       .drawCircle(p.x_, p.y_, 2)
       .endFill()
-    this.app_.stage.addChild(graphics)
+    MainApplication.app_.stage.addChild(graphics)
   }
 
   createPredators (amount = 1, MAX_VEL = 3, color = 0xFFFFFF) : void {
     for (let i = 0; i < amount; ++i) {
       const b = this.predators_.createRandomBoid(MAX_VEL, color)
       this.predators_.boids_.push(b)
-      this.app_.stage.addChild(b.graphics_)
+      MainApplication.app_.stage.addChild(b.graphics_)
     }
   }
 
@@ -83,7 +63,7 @@ export default class FlockApplication {
     for (let i = 0; i < amount; ++i) {
       const b = this.preys_.createRandomBoid(MAX_VEL, color)
       this.preys_.boids_.push(b)
-      this.app_.stage.addChild(b.graphics_)
+      MainApplication.app_.stage.addChild(b.graphics_)
     }
   }
 
@@ -91,15 +71,11 @@ export default class FlockApplication {
     return Math.round(min - 0.5 + Math.random() * (max - min + 1))
   }
 
-  amount () : number {
-    return this.app_.stage.children.length
-  }
-
   clear () : void {
     this.predators_.boids_ = []
     this.preys_.boids_ = []
     this.walls_.boids_ = []
-    this.app_.stage.removeChildren()
+    MainApplication.app_.stage.removeChildren()
   }
 
   move () : void {

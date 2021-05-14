@@ -10,26 +10,23 @@
 </template>
 
 <script lang="ts">
+import MainApplication from '@/models/MainApplication'
 import { Vue } from 'vue-class-component'
-import FlockApplication from '../models/FlockApplication'
+import FlockApplication from '../models/flocks/FlockApplication'
 
 export default class MainWindow extends Vue {
   start = false
   preyNo = 0
   predatorNo = 0
-  neutralNo = 0
   application: FlockApplication|undefined
 
   mounted () : void {
-    this.application = new FlockApplication(window.innerWidth * 0.9, window.innerHeight * 0.9)
+    MainApplication.setup(window.innerWidth * 0.9, window.innerHeight * 0.9)
     const canvas = document.getElementById('canvas') as HTMLDivElement
-    canvas.appendChild(this.application.app_.view)
+    canvas.appendChild(MainApplication.app_.view)
+    this.application = new FlockApplication()
     this.boidsNo()
     this.animate(this.application)
-  }
-
-  mouseMove () : void {
-    console.log('ok')
   }
 
   startStop () : void {
@@ -65,9 +62,10 @@ export default class MainWindow extends Vue {
   }
 
   animate (application: FlockApplication) : void {
-    application.app_.ticker.add(() => {
+    MainApplication.app_.ticker.add(() => {
       if (this.start) {
         application.move()
+        this.boidsNo()
       }
     })
   }
