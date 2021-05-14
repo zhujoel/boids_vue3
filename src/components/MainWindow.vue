@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <button @click="startStop()">Go</button>
-    <button @click="newBoids()">Add</button>
+    <button @click="newPreys()">Add</button>
     <button @click="newPredator()">Add Predator</button>
     <button @click="clear()">Clear</button>
     <div id="canvas"></div>
@@ -10,17 +10,17 @@
 
 <script lang="ts">
 import { Vue } from 'vue-class-component'
-import Flock from '../models/Flock'
+import FlockApplication from '../models/FlockApplication'
 
 export default class MainWindow extends Vue {
   start = false
-  flock: Flock|undefined
+  application: FlockApplication|undefined
 
   mounted () : void {
-    this.flock = new Flock(200, window.innerWidth * 0.9, window.innerHeight * 0.9)
+    this.application = new FlockApplication(window.innerWidth * 0.9, window.innerHeight * 0.9)
     const canvas = document.getElementById('canvas') as HTMLDivElement
-    canvas.appendChild(this.flock.app_.view)
-    this.animate(this.flock)
+    canvas.appendChild(this.application.app_.view)
+    this.animate(this.application)
   }
 
   startStop () : void {
@@ -28,27 +28,27 @@ export default class MainWindow extends Vue {
   }
 
   clear () : void {
-    if (this.flock !== undefined) {
-      this.flock.clear()
+    if (this.application !== undefined) {
+      this.application.clear()
     }
   }
 
-  newBoids () : void {
-    if (this.flock !== undefined) {
-      this.flock.createRandomBoids(this.flock.boids_, 50, 2, 0x0000FF)
+  newPreys () : void {
+    if (this.application !== undefined) {
+      this.application.createPreys(50, 2, 0x0000FF)
     }
   }
 
   newPredator () : void {
-    if (this.flock !== undefined) {
-      this.flock.createRandomBoids(this.flock.predators_, 1, 1, 0xFF0000)
+    if (this.application !== undefined) {
+      this.application.createPredators(1, 1, 0xFF0000)
     }
   }
 
-  animate (flock : Flock) : void {
-    flock.app_.ticker.add(() => {
+  animate (application: FlockApplication) : void {
+    application.app_.ticker.add(() => {
       if (this.start) {
-        flock.move()
+        application.move()
       }
     })
   }
