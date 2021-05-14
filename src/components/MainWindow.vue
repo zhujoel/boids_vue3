@@ -28,6 +28,10 @@ export default class MainWindow extends Vue {
     this.animate(this.application)
   }
 
+  mouseMove () : void {
+    console.log('ok')
+  }
+
   startStop () : void {
     this.start = !this.start
   }

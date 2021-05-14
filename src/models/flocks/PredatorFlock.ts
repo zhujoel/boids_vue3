@@ -1,10 +1,10 @@
 import Boid from '../Boid'
 import * as Separation from '../rules/SeparationRule'
-import IFLock from './IFlock'
+import IFlock from './IFlock'
 
-export default class PredatorFlock extends IFLock {
-  applyFlock (boid: Boid, flock: IFLock) : void {
-    Separation.apply(boid, flock.boids_, 100, Math.PI * 0.4, -0.05)
+export default class PredatorFlock extends IFlock {
+  applyFlock (boid: Boid) : void {
+    Separation.apply(boid, this.boids_, this.randomNum(1, 35), Math.PI * 0.4, 0.2)
   }
 
   move () : void {

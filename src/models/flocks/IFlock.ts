@@ -2,11 +2,11 @@ import Boid from '../Boid'
 import Point from '../Point'
 import * as Bound from '../rules/BoundRule'
 
-export default abstract class IFLock {
+export default abstract class IFlock {
   readonly width_: number
   readonly height_: number
   boids_: Boid[]
-  readonly others_: IFLock[]
+  readonly others_: IFlock[]
 
   constructor (width: number, height: number) {
     this.width_ = width
@@ -27,8 +27,8 @@ export default abstract class IFLock {
   }
 
   apply (boid: Boid) : void {
-    this.applyOthers(boid)
     boid.limitVelocity()
+    this.applyOthers(boid)
     Bound.apply(boid, 1, this.width_ / 2, this.height_ / 2)
     boid.pos_.addP(boid.vel_)
     boid.draw()
@@ -36,11 +36,11 @@ export default abstract class IFLock {
 
   applyOthers (boid: Boid) : void {
     this.others_.forEach(flock => {
-      this.applyFlock(boid, flock)
+      flock.applyFlock(boid)
     })
   }
 
-  abstract applyFlock (boid: Boid, flock: IFLock) : void
+  abstract applyFlock (boid: Boid) : void
 
   abstract move () : void
 }
