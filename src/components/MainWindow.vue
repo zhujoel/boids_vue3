@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <div>
+    <div id="settings">
       <Settings />
     </div>
     <div id="canvas"></div>
@@ -19,9 +19,25 @@ import Settings from '@/components/Settings.vue'
 })
 export default class MainWindow extends Vue {
   mounted () : void {
-    MainApplication.setup(window.innerWidth * 0.9, window.innerHeight * 0.9)
+    MainApplication.setup(window.innerWidth * 0.8, window.innerHeight)
     const canvas = document.getElementById('canvas') as HTMLDivElement
     canvas.appendChild(MainApplication.app_.view)
   }
 }
 </script>
+
+<style>
+html, body {
+  overflow: hidden;
+  margin: 0;
+}
+#settings {
+  background-color: red;
+  width: 20%;
+  float:left;
+}
+#canvas {
+  width: 80%;
+  overflow: hidden;
+}
+</style>

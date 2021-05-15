@@ -1,14 +1,11 @@
 <template>
-  <div id="settings">
-    <button @click="startStop()">Go</button>
-    <button @click="newPreys()">Add</button>
-    <button @click="newPredator()">Add Predator</button>
-    <button @click="clear()">Clear</button>
-    {{ this.instruction }}
-    <div>Preys: {{this.preyNo}} | Predators: {{this.predatorNo}}</div>
-    <Button label="Submit" />
-    <div id="canvas"></div>
-  </div>
+  <button @click="startStop()">Go</button>
+  <button @click="newPreys()">Add</button>
+  <button @click="newPredator()">Add Predator</button>
+  <button @click="clear()">Clear</button>
+  {{ this.instruction }}
+  <div>Preys: {{this.preyNo}} | Predators: {{this.predatorNo}}</div>
+  <Button label="Submit" />
 </template>
 
 <script lang="ts">
