@@ -1,4 +1,5 @@
 import { Application, InteractionManager } from 'pixi.js'
+import FlockApplication from './flocks/FlockApplication'
 
 export default class MainApplication {
   public static app_: Application
@@ -6,6 +7,8 @@ export default class MainApplication {
   public static width_: number
   public static height_: number
   public static down = false
+
+  public static flocks_: FlockApplication
 
   static setup (width: number, height: number) : void {
     MainApplication.width_ = width
@@ -28,6 +31,8 @@ export default class MainApplication {
     MainApplication.interactions_.on('mouseup', () => {
       MainApplication.down = false
     })
+
+    this.flocks_ = new FlockApplication()
   }
 
   static randomNum (min = 0, max = 1) : number {
