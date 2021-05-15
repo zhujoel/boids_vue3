@@ -1,11 +1,11 @@
 <template>
-  <button @click="startStop()">Go</button>
-  <button @click="newPreys()">Add</button>
-  <button @click="newPredator()">Add Predator</button>
-  <button @click="clear()">Clear</button>
+  <Button class="p-button-raised p-button-rounded" label="Go" @click="startStop()" />
+  <Button class="p-button-raised p-button-rounded" label="Add 50 Preys" @click="newPreys()" />
+  <Button class="p-button-raised p-button-rounded" label="Add Predator" @click="newPredator()" />
+  <Button class="p-button-raised p-button-rounded" label="Clear" @click="clear()" />
+  <br />
   {{ this.instruction }}
   <div>Preys: {{this.preyNo}} | Predators: {{this.predatorNo}}</div>
-  <Button label="Submit" />
 </template>
 
 <script lang="ts">
