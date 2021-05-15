@@ -29,6 +29,7 @@ export default class Settings extends Vue {
     MainApplication.app_.ticker.add(() => {
       if (this.start) {
         MainApplication.flocks_.move()
+        this.boidsNo()
       }
     })
   }
