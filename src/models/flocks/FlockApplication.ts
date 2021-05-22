@@ -1,4 +1,3 @@
-import FlockView from './FlockView'
 import IFlock from './IFlock'
 import PredatorFlock from './PredatorFlock'
 import PreyFlock from './PreyFlock'
@@ -21,8 +20,7 @@ export default class FlockApplication {
     this.flocks_[1].createRandomBoids(200, 3, 'Line', 0x0000FF)
   }
 
-  move (view: FlockView) : void {
+  move () : void {
     this.flocks_.forEach(flock => flock.move())
-    view.cnt++
   }
 }

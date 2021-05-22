@@ -4,23 +4,22 @@
   {{ this.instruction }}
   <Accordion :multiple=true>
     <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_" :header="flock.name_">
-      {{ this.view.cnt }}
       {{ flock.boids_.length }}
-      <Button @click="deleteAccordion(flock)" />
+      <Button @click="deleteAccordion(flock)"/>
     </AccordionTab>
   </Accordion>
+  <Button @click="addFlock()"/>
 </template>
 
 <script lang="ts">
-import FlockView from '@/models/flocks/FlockView'
 import IFlock from '@/models/flocks/IFlock'
+import PreyFlock from '@/models/flocks/PreyFlock'
 import MainApplication from '@/models/MainApplication'
 import { Vue } from 'vue-class-component'
 
 export default class Settings extends Vue {
   start = false
   instruction = 'Click on the canvas to draw walls!'
-  view = new FlockView(MainApplication.flocks_)
   flocks = MainApplication.flocks_
 
   mounted () : void {
@@ -32,13 +31,17 @@ export default class Settings extends Vue {
   animate () : void {
     MainApplication.app_.ticker.add(() => {
       if (this.start) {
-        MainApplication.flocks_.move(this.view)
+        MainApplication.flocks_.move()
       }
     })
   }
 
   startStop () : void {
     this.start = !this.start
+  }
+
+  addFlock () : void {
+    this.flocks.flocks_.push(new PreyFlock('Pr2'))
   }
 
   deleteAccordion (flock: IFlock) : void {
