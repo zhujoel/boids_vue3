@@ -1,32 +1,27 @@
 import MainApplication from '../MainApplication'
+import IFlock from './IFlock'
 import PredatorFlock from './PredatorFlock'
 import PreyFlock from './PreyFlock'
 import WallFlock from './WallFlock'
 
 export default class FlockApplication {
-  public predators_ = new PredatorFlock()
-  public preys_ = new PreyFlock()
-  public walls_ = new WallFlock()
+  public flocks_: IFlock[] = [
+    new PredatorFlock('Predator'),
+    new PreyFlock('Prey'),
+    new WallFlock('Wall')
+  ]
 
   constructor () {
-    this.predators_.others_.push(this.preys_)
-    this.predators_.others_.push(this.walls_)
-    this.preys_.others_.push(this.predators_)
-    this.preys_.others_.push(this.walls_)
+    this.flocks_[0].others_.push(this.flocks_[1])
+    this.flocks_[0].others_.push(this.flocks_[2])
+    this.flocks_[1].others_.push(this.flocks_[0])
+    this.flocks_[1].others_.push(this.flocks_[2])
 
-    this.predators_.createRandomBoids(3, 2, 'Circle', 0xFF0000)
-    this.preys_.createRandomBoids(200, 3, 'Line', 0x0000FF)
-  }
-
-  clear () : void {
-    this.predators_.boids_ = []
-    this.preys_.boids_ = []
-    this.walls_.boids_ = []
-    MainApplication.app_.stage.removeChildren()
+    this.flocks_[0].createRandomBoids(3, 2, 'Circle', 0xFF0000)
+    this.flocks_[1].createRandomBoids(200, 3, 'Line', 0x0000FF)
   }
 
   move () : void {
-    this.preys_.move()
-    this.predators_.move()
+    this.flocks_.forEach(flock => flock.move())
   }
 }

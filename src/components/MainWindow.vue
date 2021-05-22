@@ -18,8 +18,11 @@ import Settings from '@/components/Settings.vue'
   }
 })
 export default class MainWindow extends Vue {
-  mounted () : void {
+  created () : void {
     MainApplication.setup(window.innerWidth * 0.8, window.innerHeight)
+  }
+
+  mounted () : void {
     const canvas = document.getElementById('canvas') as HTMLDivElement
     canvas.appendChild(MainApplication.app_.view)
   }

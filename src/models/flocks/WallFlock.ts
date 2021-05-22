@@ -6,8 +6,8 @@ import { InteractionEvent, Graphics } from 'pixi.js'
 import Point from '../Point'
 
 export default class WallFlock extends IFlock {
-  constructor () {
-    super()
+  constructor (name: string) {
+    super(name)
 
     MainApplication.interactions_
       .on('mouseup', (e) => {

@@ -4,10 +4,12 @@ import * as Bound from '../rules/BoundRule'
 import MainApplication from '../MainApplication'
 
 export default abstract class IFlock {
+  name_: string
   boids_: Boid[]
   readonly others_: IFlock[]
 
-  constructor () {
+  constructor (name: string) {
+    this.name_ = name
     this.boids_ = []
     this.others_ = []
   }
