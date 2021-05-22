@@ -5,6 +5,10 @@
   <Accordion :multiple=true>
     <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_" :header="flock.name_">
       {{ this.view.cnt }}
+      <div v-for="rule in flock.rules_" :key="rule.name_">
+        {{ rule.name_ }}
+        <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
+      </div>
       <Button @click="deleteAccordion(flock)"/>
     </AccordionTab>
   </Accordion>
@@ -23,6 +27,7 @@ export default class Settings extends Vue {
   instruction = 'Click on the canvas to draw walls!'
   flocks = MainApplication.flocks_
   view = new FlockView(MainApplication.flocks_)
+  sliderno = 0
 
   mounted () : void {
     this.$nextTick(() => {

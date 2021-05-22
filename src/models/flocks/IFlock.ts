@@ -2,14 +2,17 @@ import Boid from '../Boid'
 import Point from '../Point'
 import * as Bound from '../rules/BoundRule'
 import MainApplication from '../MainApplication'
+import IRule from '../rules/IRule'
 
 export default abstract class IFlock {
   name_: string
+  rules_: IRule[]
   boids_: Boid[]
   readonly others_: IFlock[]
 
   constructor (name: string) {
     this.name_ = name
+    this.rules_ = []
     this.boids_ = []
     this.others_ = []
   }

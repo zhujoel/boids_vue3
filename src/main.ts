@@ -6,6 +6,7 @@ import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import Accordion from 'primevue/accordion'
 import AccordionTab from 'primevue/accordiontab'
+import Slider from 'primevue/slider'
 
 import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -17,4 +18,5 @@ createApp(App)
   .component('Button', Button)
   .component('Accordion', Accordion)
   .component('AccordionTab', AccordionTab)
+  .component('Slider', Slider)
   .mount('#app')
