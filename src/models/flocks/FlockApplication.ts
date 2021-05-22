@@ -1,4 +1,3 @@
-import MainApplication from '../MainApplication'
 import IFlock from './IFlock'
 import PredatorFlock from './PredatorFlock'
 import PreyFlock from './PreyFlock'
