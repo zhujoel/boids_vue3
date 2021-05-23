@@ -37,26 +37,27 @@ export default class Boid {
     this.graphics_.position.x = this.pos_.x_
     this.graphics_.position.y = this.pos_.y_
 
-    if (this.style_ === 'Circle') {
-      this.graphics_.lineStyle(0)
-        .clear()
-        .beginFill(this.color_, 2)
-        .drawCircle(this.graphics_.x, this.graphics_.y, this.size_)
-        .endFill()
-    } else if (this.style_ === 'Line') {
-      this.graphics_
-        .clear()
-        .lineStyle(this.size_, this.color_)
-        .moveTo(this.pos_.x_, this.pos_.y_)
-        .lineTo(this.pos_.x_ + this.vel_.x_ * this.size_, this.pos_.y_ + this.vel_.y_ * this.size_)
-        .closePath()
-    }
+    // if (this.style_ === 'Circle') {
+    //   this.graphics_.lineStyle(0)
+    //     .clear()
+    //     .beginFill(this.color_, 2)
+    //     .drawCircle(this.graphics_.x, this.graphics_.y, this.size_)
+    //     .endFill()
+    // } else if (this.style_ === 'Line') {
+    this.graphics_
+      .clear()
+      .lineStyle(this.size_, this.color_)
+      .moveTo(this.pos_.x_, this.pos_.y_)
+      .lineTo(this.pos_.x_ + this.vel_.x_ * this.size_, this.pos_.y_ + this.vel_.y_ * this.size_)
+      .closePath()
+    // }
   }
 
   limitVelocity () : void {
     const velMag = this.vel_.norm2()
-    if (velMag > this.MAX_VEL) {
-      this.vel_.divS(velMag).multS(this.MAX_VEL)
+    const max = Math.max(this.MAX_VEL - this.size_ * 0.3, 0.4)
+    if (velMag > max) {
+      this.vel_.divS(velMag).multS(max)
     }
   }
 }

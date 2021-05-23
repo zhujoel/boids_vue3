@@ -1,4 +1,3 @@
-import MainApplication from '../MainApplication'
 import FlockApplication from './FlockApplication'
 import IFlock from './IFlock'
 
@@ -8,10 +7,6 @@ export default class FlockView {
 
   constructor (app: FlockApplication) {
     this.app_ = app
-  }
-
-  one () : number {
-    return 1
   }
 
   update () : void {

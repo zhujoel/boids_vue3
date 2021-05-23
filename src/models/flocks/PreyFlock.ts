@@ -4,7 +4,6 @@ import * as Separation from '../rules/SeparationRule'
 import * as Eat from '../rules/EatRule'
 import IFlock from './IFlock'
 import Boid from '../Boid'
-import IRule from '../rules/IRule'
 
 export default class PreyFlock extends IFlock {
   constructor (name: string) {
@@ -14,7 +13,7 @@ export default class PreyFlock extends IFlock {
 
   applyFlock (boid: Boid) : void {
     Separation.apply(boid, this.boids_, 100, Math.PI * 0.4, -0.0005)
-    if (Eat.apply(boid, this.boids_, boid.size_)) {
+    if (Eat.apply(boid, this.boids_, boid.size_ * 0.5)) {
       boid.size_++
     }
   }

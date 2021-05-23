@@ -29,7 +29,7 @@ export default class Settings extends Vue {
   start = false
   flocks = MainApplication.flocks_
   view = new FlockView(MainApplication.flocks_)
-  flockName = ''
+  flockName = 'New Flock'
 
   mounted () : void {
     this.$nextTick(() => {
