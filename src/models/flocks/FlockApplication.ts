@@ -1,6 +1,5 @@
 import FlockView from './FlockView'
 import IFlock from './IFlock'
-import PredatorFlock from './PredatorFlock'
 import PreyFlock from './PreyFlock'
 import WallFlock from './WallFlock'
 

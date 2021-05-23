@@ -9,7 +9,7 @@
         {{ rule.name_ }}
         <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
       </div>
-      <Button @click="deleteAccordion(flock)"/>
+      <Button label="Delete" @click="deleteAccordion(flock)" />
     </AccordionTab>
   </Accordion>
   <Button @click="addFlock()"/>
@@ -53,6 +53,7 @@ export default class Settings extends Vue {
 
   deleteAccordion (flock: IFlock) : void {
     const idx = this.flocks.flocks_.indexOf(flock)
+    MainApplication.removeFlockFromApp(MainApplication.flocks_.flocks_[idx])
     this.flocks.flocks_.splice(idx, 1)
   }
 }

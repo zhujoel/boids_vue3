@@ -24,8 +24,14 @@ export default class WallFlock extends IFlock {
 
   wall (e: InteractionEvent) : void {
     const p = new Point(e.data.global.x, e.data.global.y)
-    this.drawWall(p)
-    this.boids_.push(new Boid(p.divS(2), new Point(0, 0), 0xFF0000))
+    // this.drawWall(p)
+    const b = new Boid(p.divS(2), new Point(0, 0), 0xFF0000)
+    this.boids_.push(b)
+    b.graphics_ = new Graphics()
+      .beginFill(0x000000, 1)
+      .drawCircle(b.pos_.x_ * 2, b.pos_.y_ * 2, 2)
+      .endFill()
+    MainApplication.app_.stage.addChild(b.graphics_)
   }
 
   drawWall (p: Point) : void {

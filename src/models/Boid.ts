@@ -5,7 +5,7 @@ export default class Boid {
   public readonly MAX_VEL
   public readonly pos_: Point
   public readonly vel_: Point
-  public readonly graphics_ = new Graphics()
+  public graphics_ = new Graphics()
   public readonly color_: number
   public readonly style_
   public size_ = 3

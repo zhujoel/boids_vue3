@@ -1,5 +1,7 @@
 import { Application, InteractionManager } from 'pixi.js'
+import Boid from './Boid'
 import FlockApplication from './flocks/FlockApplication'
+import IFlock from './flocks/IFlock'
 
 export default class MainApplication {
   public static app_: Application
@@ -37,5 +39,15 @@ export default class MainApplication {
 
   static randomNum (min = 0, max = 1) : number {
     return Math.round(min - 0.5 + Math.random() * (max - min + 1))
+  }
+
+  static removeBoidFromApp (boid: Boid) : void {
+    MainApplication.app_.stage.removeChild(boid.graphics_)
+  }
+
+  static removeFlockFromApp (flock: IFlock) : void {
+    for (let i = 0; i < flock.boids_.length; ++i) {
+      MainApplication.removeBoidFromApp(flock.boids_[i])
+    }
   }
 }
