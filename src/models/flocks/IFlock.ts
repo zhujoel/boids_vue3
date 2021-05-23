@@ -21,7 +21,6 @@ export default abstract class IFlock {
     for (let i = 0; i < amount; ++i) {
       const b = this.createRandomBoid(MAX_VEL, style, color)
       this.boids_.push(b)
-      console.log(b)
       MainApplication.app_.stage.addChild(b.graphics_)
     }
   }
