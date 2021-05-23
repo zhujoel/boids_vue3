@@ -13,7 +13,10 @@
       <Button label="Delete" @click="deleteAccordion(flock)" />
     </AccordionTab>
   </Accordion>
-  <Button label="Add Flock" @click="addFlock()"/>
+  <div id="flock-input">
+    <Button class="p-button-text" id="add-flock-btn" label="Add Flock" @click="addFlock()"/>
+    <InputText id="add-flock-name" v-model="this.flockName" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -29,6 +32,7 @@ export default class Settings extends Vue {
   flocks = MainApplication.flocks_
   view = new FlockView(MainApplication.flocks_)
   sliderno = 0
+  flockName = ''
 
   mounted () : void {
     this.$nextTick(() => {
@@ -54,7 +58,7 @@ export default class Settings extends Vue {
   }
 
   addFlock () : void {
-    this.flocks.flocks_.push(new PreyFlock('Pr2'))
+    this.flocks.flocks_.push(new PreyFlock(this.flockName))
   }
 
   deleteAccordion (flock: IFlock) : void {
@@ -68,5 +72,13 @@ export default class Settings extends Vue {
 <style>
 .start-btn {
   width: 100%;
+}
+
+#add-flock-btn {
+  width: 50%;
+}
+
+#add-flock-name {
+  width: 50%;
 }
 </style>
