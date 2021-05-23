@@ -9,6 +9,6 @@ export default class FlockView {
   }
 
   update () : void {
-    this.cnt = this.app_.flocks_[0].boids_.length
+    this.cnt = this.app_.flocks_[1].boids_.length
   }
 }

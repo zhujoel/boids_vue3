@@ -1,7 +1,6 @@
 <template>
   <Button class="start-btn" label="Go" @click="startStop()" />
   <br />
-  {{ this.instruction }}
   <Accordion :multiple=true>
     <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_" :header="flock.name_">
       {{ this.view.cnt }}
@@ -28,10 +27,8 @@ import { Vue } from 'vue-class-component'
 
 export default class Settings extends Vue {
   start = false
-  instruction = 'Click on the canvas to draw walls!'
   flocks = MainApplication.flocks_
   view = new FlockView(MainApplication.flocks_)
-  sliderno = 0
   flockName = ''
 
   mounted () : void {
