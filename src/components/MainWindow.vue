@@ -35,7 +35,6 @@ html, body {
   margin: 0;
 }
 #settings {
-  background-color: red;
   width: 20%;
   float:left;
 }

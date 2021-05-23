@@ -1,5 +1,5 @@
 <template>
-  <Button class="p-button-raised p-button-rounded" label="Go" @click="startStop()" />
+  <Button class="start-btn" label="Go" @click="startStop()" />
   <br />
   {{ this.instruction }}
   <Accordion :multiple=true>
@@ -9,10 +9,11 @@
         {{ rule.name_ }}
         <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
       </div>
+      <Button label="Add" @click="addBoids(flock)" />
       <Button label="Delete" @click="deleteAccordion(flock)" />
     </AccordionTab>
   </Accordion>
-  <Button @click="addFlock()"/>
+  <Button label="Add Flock" @click="addFlock()"/>
 </template>
 
 <script lang="ts">
@@ -47,6 +48,11 @@ export default class Settings extends Vue {
     this.start = !this.start
   }
 
+  addBoids (flock: IFlock) : void {
+    const idx = this.flocks.flocks_.indexOf(flock)
+    MainApplication.flocks_.flocks_[idx].createRandomBoids(10, 3, 'Line', 0xFF0000)
+  }
+
   addFlock () : void {
     this.flocks.flocks_.push(new PreyFlock('Pr2'))
   }
@@ -58,3 +64,9 @@ export default class Settings extends Vue {
   }
 }
 </script>
+
+<style>
+.start-btn {
+  width: 100%;
+}
+</style>
