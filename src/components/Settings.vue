@@ -51,7 +51,7 @@ export default class Settings extends Vue {
 
   addBoids (flock: IFlock) : void {
     const idx = this.flocks.flocks_.indexOf(flock)
-    MainApplication.flocks_.flocks_[idx].createRandomBoids(10, 3, 'Line', 0xFF0000)
+    MainApplication.flocks_.flocks_[idx].createRandomBoids(10, 3, 0xFF0000)
   }
 
   addFlock () : void {

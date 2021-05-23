@@ -7,16 +7,14 @@ export default class Boid {
   public readonly vel_: Point
   public graphics_ = new Graphics()
   public readonly color_: number
-  public readonly style_
   public size_ = 3
 
-  constructor (pos: Point, vel: Point, MAX_VEL = 3, style = 'Line', color = 0xFF0000) {
+  constructor (pos: Point, vel: Point, MAX_VEL = 3, color = 0xFF0000) {
     this.pos_ = pos
     this.graphics_.x = pos.x_
     this.graphics_.y = pos.y_
     this.vel_ = vel
     this.MAX_VEL = MAX_VEL
-    this.style_ = style
     this.color_ = color
     this.draw()
   }
@@ -37,20 +35,12 @@ export default class Boid {
     this.graphics_.position.x = this.pos_.x_
     this.graphics_.position.y = this.pos_.y_
 
-    // if (this.style_ === 'Circle') {
-    //   this.graphics_.lineStyle(0)
-    //     .clear()
-    //     .beginFill(this.color_, 2)
-    //     .drawCircle(this.graphics_.x, this.graphics_.y, this.size_)
-    //     .endFill()
-    // } else if (this.style_ === 'Line') {
     this.graphics_
       .clear()
       .lineStyle(this.size_, this.color_)
       .moveTo(this.pos_.x_, this.pos_.y_)
       .lineTo(this.pos_.x_ + this.vel_.x_ * this.size_, this.pos_.y_ + this.vel_.y_ * this.size_)
       .closePath()
-    // }
   }
 
   limitVelocity () : void {
