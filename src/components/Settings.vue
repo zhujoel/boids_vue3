@@ -4,6 +4,7 @@
   <Accordion :multiple=true>
     <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_" :header="flock.name_">
       {{ this.view.counter(flock) }}
+      <ColorPicker v-model="this.color" @update="print($event)" />
       <div v-for="rule in flock.rules_" :key="rule.name_">
         {{ rule.name_ }}
         <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
@@ -30,6 +31,7 @@ export default class Settings extends Vue {
   flocks = MainApplication.flocks_
   view = new FlockView(MainApplication.flocks_)
   flockName = 'New Flock'
+  color = '000AA0'
 
   mounted () : void {
     this.$nextTick(() => {
@@ -43,6 +45,10 @@ export default class Settings extends Vue {
         MainApplication.flocks_.move(this.view)
       }
     })
+  }
+
+  print (e: any) : void {
+    console.log('hey')
   }
 
   startStop () : void {

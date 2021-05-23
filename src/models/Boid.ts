@@ -6,7 +6,7 @@ export default class Boid {
   public readonly pos_: Point
   public readonly vel_: Point
   public graphics_ = new Graphics()
-  public readonly color_: number
+  public color_: number
   public size_ = 3
 
   constructor (pos: Point, vel: Point, MAX_VEL = 3, color = 0xFF0000) {
