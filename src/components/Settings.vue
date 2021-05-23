@@ -80,17 +80,25 @@ export default class Settings extends Vue {
   }
 
   addFlock () : void {
-    if (this.preySelected) {
-      this.flocks.flocks_.push(new PreyFlock(this.flockName))
-    } else {
-      this.flocks.flocks_.push(new PredatorFlock(this.flockName))
-    }
+    const newFlock = this.preySelected ? new PreyFlock(this.flockName) : new PredatorFlock(this.flockName)
+
+    MainApplication.flocks_.flocks_.forEach(flock => {
+      if (flock instanceof PreyFlock) {
+        flock.others_.push(newFlock)
+        newFlock.others_.push(flock)
+      }
+    })
+    this.flocks.flocks_.push(newFlock)
   }
 
   deleteAccordion (flock: IFlock) : void {
     const idx = this.flocks.flocks_.indexOf(flock)
     MainApplication.removeFlockFromApp(MainApplication.flocks_.flocks_[idx])
     this.flocks.flocks_.splice(idx, 1)
+    this.flocks.flocks_.forEach(flock => {
+      const otherIdx = flock.others_.indexOf(flock)
+      flock.others_.splice(otherIdx, 1)
+    })
   }
 }
 </script>
