@@ -22,6 +22,10 @@ export default class WallFlock extends IFlock {
       })
   }
 
+  isPreyFlock () : boolean {
+    return false
+  }
+
   wall (e: InteractionEvent) : void {
     const p = new Point(e.data.global.x, e.data.global.y)
     // this.drawWall(p)

@@ -46,6 +46,8 @@ export default abstract class IFlock {
     })
   }
 
+  abstract isPreyFlock () : boolean
+
   abstract applyFlock (boid: Boid) : void
 
   abstract move () : void

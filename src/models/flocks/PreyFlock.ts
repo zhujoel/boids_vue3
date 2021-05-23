@@ -11,6 +11,10 @@ export default class PreyFlock extends IFlock {
     this.rules_.push(new AlignmentRule('Alignment', 100, Math.PI * 0.3, 0.05))
   }
 
+  isPreyFlock () : boolean {
+    return true
+  }
+
   applyFlock (boid: Boid) : void {
     Separation.apply(boid, this.boids_, 100, Math.PI * 0.4, -0.0005)
     if (Eat.apply(boid, this.boids_, boid.size_ * 0.5)) {

@@ -34,7 +34,6 @@ export default class Boid {
   draw () : void {
     this.graphics_.position.x = this.pos_.x_
     this.graphics_.position.y = this.pos_.y_
-
     this.graphics_
       .clear()
       .lineStyle(this.size_, this.color_)

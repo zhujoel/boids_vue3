@@ -2,9 +2,14 @@
   <Button class="start-btn" label="Go" @click="startStop()" />
   <br />
   <Accordion :multiple=true>
-    <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_" :header="flock.name_">
+    <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_">
+      <template #header>
+        <span>{{flock.name_}}</span>
+        <img v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem" />
+        <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
+      </template>
       {{ this.view.counter(flock) }}
-      <ColorPicker v-model="this.color" @update="print($event)" />
+      <input type="color" @change="changeColor($event, flock)" >
       <div v-for="rule in flock.rules_" :key="rule.name_">
         {{ rule.name_ }}
         <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
@@ -14,8 +19,12 @@
     </AccordionTab>
   </Accordion>
   <div id="flock-input">
-    <Button class="p-button-text" id="add-flock-btn" label="Add Flock" @click="addFlock()"/>
+    <Button @click="changeIcon()">
+      <img v-if="this.preySelected" alt="logo" src="../../assets/fish.png" style="width: 1.5rem" />
+      <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
+    </Button>
     <InputText id="add-flock-name" v-model="this.flockName" />
+    <Button class="p-button-text" id="add-flock-btn" label="Add Flock" @click="addFlock()"/>
   </div>
 </template>
 
@@ -25,13 +34,14 @@ import PreyFlock from '@/models/flocks/PreyFlock'
 import FlockView from '@/models/flocks/FlockView'
 import MainApplication from '@/models/MainApplication'
 import { Vue } from 'vue-class-component'
+import PredatorFlock from '@/models/flocks/PredatorFlock'
 
 export default class Settings extends Vue {
   start = false
   flocks = MainApplication.flocks_
   view = new FlockView(MainApplication.flocks_)
   flockName = 'New Flock'
-  color = '000AA0'
+  preySelected = true
 
   mounted () : void {
     this.$nextTick(() => {
@@ -47,12 +57,21 @@ export default class Settings extends Vue {
     })
   }
 
-  print (e: any) : void {
-    console.log('hey')
+  changeColor (e: any, flock: IFlock) : void {
+    const val = e.target.value
+    const idx = this.flocks.flocks_.indexOf(flock)
+    MainApplication.flocks_.flocks_[idx].boids_.forEach(boid => {
+      console.log(parseInt(val.slice(1), 16))
+      boid.color_ = parseInt(val.slice(1), 16)
+    })
   }
 
   startStop () : void {
     this.start = !this.start
+  }
+
+  changeIcon () : void {
+    this.preySelected = !this.preySelected
   }
 
   addBoids (flock: IFlock) : void {
@@ -61,7 +80,11 @@ export default class Settings extends Vue {
   }
 
   addFlock () : void {
-    this.flocks.flocks_.push(new PreyFlock(this.flockName))
+    if (this.preySelected) {
+      this.flocks.flocks_.push(new PreyFlock(this.flockName))
+    } else {
+      this.flocks.flocks_.push(new PredatorFlock(this.flockName))
+    }
   }
 
   deleteAccordion (flock: IFlock) : void {
@@ -78,10 +101,10 @@ export default class Settings extends Vue {
 }
 
 #add-flock-btn {
-  width: 50%;
+  width: 100%;
 }
 
 #add-flock-name {
-  width: 50%;
+  width: 77%;
 }
 </style>

@@ -12,9 +12,6 @@ export default class FlockView {
   update () : void {
     for (let i = 0; i < this.app_.flocks_.length; ++i) {
       this.cnts_[i] = this.app_.flocks_[i].boids_.length
-      this.app_.flocks_[i].boids_.forEach(boid => {
-        boid.color_ = Math.random() * 0x010101
-      })
     }
   }
 

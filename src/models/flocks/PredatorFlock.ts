@@ -4,6 +4,10 @@ import * as Separation from '../rules/SeparationRule'
 import IFlock from './IFlock'
 
 export default class PredatorFlock extends IFlock {
+  isPreyFlock () : boolean {
+    return false
+  }
+
   applyFlock (boid: Boid) : void {
     Separation.apply(boid, this.boids_, MainApplication.randomNum(1, 35), Math.PI * 0.4, 0.2)
   }
