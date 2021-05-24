@@ -1,24 +1,42 @@
-# boids_vue3
+# Boids Simulation in Vue3
 
-## Project setup
+Accessible at: (https://zhujoel.github.io/boids_vue3/).
+
+## Author
+
+Joël ZHU
+
+## About
+
+This project simulates complex flocking behaviour as we can naturally see in birds or fishes.
+
+It is largely inspired by [Craig Reynolds' algorithm](http://www.red3d.com/cwr/boids/) as well as [Conrad Parker's pseudocode](http://www.kfish.org/boids/pseudocode.html).
+
+## Features
+
+* Simulate flocking behaviour.
+* Create Prey and Predator flocks.
+* Parameterize rules.
+* Create walls by clicking on the canvas.
+
+## Techonology
+
+* VueJS 3.0
+* TypeScript
+* Node.js
+* PixiJS
+* PrimeVue
+
+## How to run
+
+You need Node.js.
+
+Install Node.js on Debian-based distributions:
+```
+sudo apt install nodejs npm
+```
+
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
