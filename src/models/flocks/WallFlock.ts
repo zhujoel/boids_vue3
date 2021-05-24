@@ -1,6 +1,6 @@
 import Boid from '../Boid'
 import MainApplication from '../MainApplication'
-import * as Separation from '../rules/SeparationRule'
+import SeparationRule from '../rules/SeparationRule'
 import IFlock from './IFlock'
 import { InteractionEvent, Graphics } from 'pixi.js'
 import Point from '../Point'
@@ -39,7 +39,8 @@ export default class WallFlock extends IFlock {
   }
 
   applyFlock (boid: Boid) : void {
-    Separation.apply(boid, this.boids_, 10 + boid.size_, Math.PI, 0.1)
+    const rule = new SeparationRule('Separation', 10 + boid.size_, Math.PI, 0.1)
+    rule.apply(boid, this.boids_)
   }
 
   move (): void {
