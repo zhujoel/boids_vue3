@@ -33,10 +33,12 @@ export default class MainWindow extends Vue {
 html, body {
   margin: 0;
 }
+
 #settings {
   width: 20%;
   float:left;
 }
+
 #canvas {
   overflow: hidden;
 }

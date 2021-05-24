@@ -171,7 +171,5 @@ input::-webkit-inner-spin-button {
 
 .color-input {
   border: 0;
-  width: 40px;
-  height: 15px;
 }
 </style>
