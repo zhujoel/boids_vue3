@@ -1,5 +1,10 @@
 <template>
-  <Button class="start-btn" label="Go" @click="startStop()" />
+  <Button v-if="!this.start" class="start-btn p-button-success" @click="startStop()">
+    <i class="pi pi-play" style="margin: auto" />
+  </Button>
+  <Button v-else class="start-btn p-button-danger" @click="startStop()">
+    <i class="pi pi-pause" style="margin: auto" />
+  </Button>
   <br />
   <Accordion :multiple=true>
     <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_">
