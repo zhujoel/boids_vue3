@@ -6,34 +6,36 @@
     <i class="pi pi-pause" style="margin: auto" />
   </Button>
   <br />
-  <Accordion :multiple=true>
-    <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_">
-      <template #header>
-        <span>{{flock.name_}}</span>
-        <span style="margin: auto"> {{ this.view.counter(flock) }} </span>
-        <img class="flock-logo" v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
-        <img class="flock-logo" v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
-        <Button class="p-button-text p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
-      </template>
-      <div> Color: <input type="color" @change="changeColor($event, flock)" /> </div>
-      <div v-for="rule in flock.rules_" :key="rule.name_">
-        {{ rule.name_ }}
-        <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
-      </div>
-      <div>
-        Add boids: <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
-        <Button class="p-button-text" icon="pi pi-plus" @click="addBoids(flock)" />
-      </div>
-    </AccordionTab>
-  </Accordion>
-  <div id="flock-input">
-    <Button @click="changeIcon()">
-      <img v-if="this.preySelected" alt="logo" src="../../assets/fish.png" style="width: 1.5rem" />
-      <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
-    </Button>
-    <InputText id="add-flock-name" placeholder="Flock name" v-model="this.flockName" />
-    <Button class="p-button-text" id="add-flock-btn" label="Add Flock" @click="addFlock()"/>
-  </div>
+  <ScrollPanel>
+    <Accordion :multiple=true>
+      <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_">
+        <template #header>
+          <span>{{flock.name_}}</span>
+          <span style="margin: auto"> {{ this.view.counter(flock) }} </span>
+          <img class="flock-logo" v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
+          <img class="flock-logo" v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
+          <Button class="p-button-text p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
+        </template>
+        <div> Color: <input type="color" @change="changeColor($event, flock)" /> </div>
+        <div v-for="rule in flock.rules_" :key="rule.name_">
+          {{ rule.name_ }}
+          <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
+        </div>
+        <div>
+          Add boids: <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
+          <Button class="p-button-text" icon="pi pi-plus" @click="addBoids(flock)" />
+        </div>
+      </AccordionTab>
+    </Accordion>
+    <div id="flock-input">
+      <Button @click="changeIcon()">
+        <img v-if="this.preySelected" alt="logo" src="../../assets/fish.png" style="width: 1.5rem" />
+        <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
+      </Button>
+      <InputText id="add-flock-name" placeholder="Flock name" v-model="this.flockName" />
+      <Button class="p-button-text" id="add-flock-btn" label="Add Flock" @click="addFlock()"/>
+    </div>
+  </ScrollPanel>
 </template>
 
 <script lang="ts">
@@ -76,7 +78,6 @@ export default class Settings extends Vue {
   animate () : void {
     MainApplication.app_.ticker.add(() => {
       if (this.start) {
-        this.changeLogoColor()
         MainApplication.flocks_.move(this.view)
       }
     })

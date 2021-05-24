@@ -19,7 +19,7 @@ import Settings from '@/components/Settings.vue'
 })
 export default class MainWindow extends Vue {
   created () : void {
-    MainApplication.setup(window.innerWidth * 0.8, window.innerHeight)
+    MainApplication.setup(window.innerWidth * 0.8, window.innerHeight * 0.99)
   }
 
   mounted () : void {
@@ -31,7 +31,6 @@ export default class MainWindow extends Vue {
 
 <style>
 html, body {
-  overflow: hidden;
   margin: 0;
 }
 #settings {
@@ -39,7 +38,6 @@ html, body {
   float:left;
 }
 #canvas {
-  width: 80%;
   overflow: hidden;
 }
 </style>
