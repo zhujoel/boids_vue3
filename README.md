@@ -1,6 +1,6 @@
 # Boids Simulation in Vue3
 
-Accessible at: (https://zhujoel.github.io/boids_vue3/).
+Accessible at: https://zhujoel.github.io/boids_vue3/.
 
 ## Author
 

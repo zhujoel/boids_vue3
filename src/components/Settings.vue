@@ -218,6 +218,7 @@ input::-webkit-inner-spin-button {
   bottom: 5px;
   left: 1px;
   font-size: 10px;
+  background-color: white;
 }
 
 #gh-pages {
@@ -225,6 +226,7 @@ input::-webkit-inner-spin-button {
   bottom: 5px;
   left: 15%;
   font-size: 10px;
+  background-color: white;
 }
 
 li {
