@@ -11,8 +11,8 @@
       <template #header>
         <span>{{flock.name_}}</span>
         <span style="margin: auto"> {{ this.view.counter(flock) }} </span>
-        <img v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
-        <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
+        <img class="flock-logo" v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
+        <img class="flock-logo" v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
         <Button class="p-button-text p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
       </template>
       <div> Color: <input type="color" @change="changeColor($event, flock)" /> </div>
@@ -43,6 +43,8 @@ import FlockView from '@/models/flocks/FlockView'
 import MainApplication from '@/models/MainApplication'
 import { Vue } from 'vue-class-component'
 import PredatorFlock from '@/models/flocks/PredatorFlock'
+import * as CS from '@/models/ColorSolver'
+import * as H2RGB from '@/models/Hex2RGB'
 
 export default class Settings extends Vue {
   start = false
@@ -55,6 +57,16 @@ export default class Settings extends Vue {
     this.$nextTick(() => {
       this.animate()
     })
+
+    const logos = document.querySelectorAll('.flock-logo')
+    for (let i = 0; i < logos.length; ++i) {
+      const logo = logos[i] as any
+      const rgb = H2RGB.hex2RGB(this.flocks.flocks_[i].color_.toString(16).padStart(6, '0')) as number[]
+      const c = new CS.Color(rgb[0], rgb[1], rgb[2])
+      const solver = new CS.Solver(c)
+      const res = solver.solve()
+      logo.style.filter = res.filter
+    }
   }
 
   animate () : void {
@@ -69,6 +81,16 @@ export default class Settings extends Vue {
     const val = e.target.value
     const idx = this.flocks.flocks_.indexOf(flock)
     MainApplication.flocks_.flocks_[idx].color_ = parseInt(val.slice(1), 16)
+
+    const logos = document.querySelectorAll('.flock-logo')
+    for (let i = 0; i < logos.length; ++i) {
+      const logo = logos[i] as any
+      const rgb = H2RGB.hex2RGB(this.flocks.flocks_[i].color_.toString(16).padStart(6, '0')) as number[]
+      const c = new CS.Color(rgb[0], rgb[1], rgb[2])
+      const solver = new CS.Solver(c)
+      const res = solver.solve()
+      logo.style.filter = res.filter
+    }
   }
 
   noBoidsToAdd (e: any, flock: IFlock) : void {
