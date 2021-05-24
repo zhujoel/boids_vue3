@@ -15,7 +15,7 @@
         <img class="flock-logo" v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
         <Button class="p-button-text p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
       </template>
-      <div> Color: <input type="color" @change="changeColor($event, flock)" /> </div>
+      <div> Color: <input class="color-input" type="color" @change="changeColor($event, flock)" /> </div>
       <div v-for="rule in flock.rules_" :key="rule.name_">
         {{ rule.name_ }}
         <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
@@ -63,9 +63,12 @@ export default class Settings extends Vue {
 
   changeLogoColor () : void {
     const logos = document.querySelectorAll('.flock-logo')
+    const colorInputs = document.querySelectorAll('.color-input')
     for (let i = 0; i < logos.length; ++i) {
       const logo = logos[i] as any
+      const input = colorInputs[i] as any
       const rgb = H2RGB.hex2RGB(this.flocks.flocks_[i].color_.toString(16).padStart(6, '0')) as number[]
+      input.value = '#' + this.flocks.flocks_[i].color_.toString(16).padStart(6, '0')
       const c = new CS.Color(rgb[0], rgb[1], rgb[2])
       const solver = new CS.Solver(c)
       const res = solver.solve()
