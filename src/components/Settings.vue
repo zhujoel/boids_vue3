@@ -58,6 +58,10 @@ export default class Settings extends Vue {
       this.animate()
     })
 
+    this.changeLogoColor()
+  }
+
+  changeLogoColor () : void {
     const logos = document.querySelectorAll('.flock-logo')
     for (let i = 0; i < logos.length; ++i) {
       const logo = logos[i] as any
@@ -72,6 +76,7 @@ export default class Settings extends Vue {
   animate () : void {
     MainApplication.app_.ticker.add(() => {
       if (this.start) {
+        this.changeLogoColor()
         MainApplication.flocks_.move(this.view)
       }
     })
@@ -81,16 +86,7 @@ export default class Settings extends Vue {
     const val = e.target.value
     const idx = this.flocks.flocks_.indexOf(flock)
     MainApplication.flocks_.flocks_[idx].color_ = parseInt(val.slice(1), 16)
-
-    const logos = document.querySelectorAll('.flock-logo')
-    for (let i = 0; i < logos.length; ++i) {
-      const logo = logos[i] as any
-      const rgb = H2RGB.hex2RGB(this.flocks.flocks_[i].color_.toString(16).padStart(6, '0')) as number[]
-      const c = new CS.Color(rgb[0], rgb[1], rgb[2])
-      const solver = new CS.Solver(c)
-      const res = solver.solve()
-      logo.style.filter = res.filter
-    }
+    this.changeLogoColor()
   }
 
   noBoidsToAdd (e: any, flock: IFlock) : void {
