@@ -102,6 +102,10 @@ export default class Settings extends Vue {
   preySelected = true
   overlayValue = 50
 
+  beforeMount () : void {
+    this.view.update()
+  }
+
   mounted () : void {
     this.$nextTick(() => {
       this.animate()

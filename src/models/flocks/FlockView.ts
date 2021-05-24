@@ -3,7 +3,7 @@ import IFlock from './IFlock'
 
 export default class FlockView {
   app_: FlockApplication
-  cnts_ = [0, 0]
+  cnts_ = [3, 200]
   adds_ = [0, 0]
 
   constructor (app: FlockApplication) {
