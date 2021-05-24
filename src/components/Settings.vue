@@ -48,6 +48,39 @@
     <InputText id="add-flock-name" placeholder="Flock name" v-model="this.flockName" />
     <Button class="p-button-rounded p-button-text" icon="pi pi-plus-circle" @click="addFlock()"/>
   </div>
+
+  <OverlayPanel ref="op">
+    This page simulates complex <b>flocking behaviour</b> as we can naturally see in birds or fishes.<br>
+    It is largely inspired by <a href="http://www.red3d.com/cwr/boids/">Craig Reynolds' algorithm</a> as well as <a href="http://www.kfish.org/boids/pseudocode.html">Conrad Parker's pseudocode</a>.<br>
+    <br>
+    Here you may:
+    <ul>
+      <li><Button class="p-button-success" icon="pi pi-play" /> Start the simulation.</li>
+      <li>Create new <b>flocks:</b> <br>
+      <Button>
+        <img alt="logo" src="../../assets/fish.png" style="width: 1.5rem" />
+      </Button>
+      <b> Prey:</b> Preys are regular boids and will run away from predators.
+      <br>
+      <Button style="margin-top: 2px;">
+        <img alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
+      </Button>
+      <b> Predator:</b> Predators swim toward any prey and will eat it if close enough!
+      </li>
+      <li>Change <b>rules: </b> <Slider v-model="this.overlayValue" :min="0" :max="100" style="width: 50%; display: inline-block;"> </Slider>
+        <ul>
+          <li><b>Alignment:</b> Fly towards nearby boids.</li>
+          <li><b>Cohesion:</b> Match the speed of near boids.</li>
+          <li><b>Separation:</b> Keep away from other boids. </li>
+          <li>The higher the slider, the more <b>impact</b> the rule will have.</li>
+        </ul>
+      </li>
+      <li>Click on the canvas to <b>draw walls</b>.</li>
+    </ul>
+  </OverlayPanel>
+
+  <a id="overlay-text" href="javascript:void(0);" @click="togglePanel($event)">What is this?</a>
+  <a id="gh-pages" href="https://github.com/zhujoel/boids_vue3">By Joël ZHU</a>
 </template>
 
 <script lang="ts">
@@ -59,6 +92,7 @@ import { Vue } from 'vue-class-component'
 import PredatorFlock from '@/models/flocks/PredatorFlock'
 import * as CS from '@/models/ColorSolver'
 import * as H2RGB from '@/models/Hex2RGB'
+import OverlayPanel from 'primevue/overlaypanel'
 
 export default class Settings extends Vue {
   start = false
@@ -66,6 +100,7 @@ export default class Settings extends Vue {
   view = new FlockView(MainApplication.flocks_)
   flockName = 'New Flock'
   preySelected = true
+  overlayValue = 50
 
   mounted () : void {
     this.$nextTick(() => {
@@ -73,6 +108,11 @@ export default class Settings extends Vue {
     })
 
     this.changeLogoColor()
+  }
+
+  togglePanel (event: Event) : void {
+    const panel = this.$refs.op as OverlayPanel
+    panel.toggle(event)
   }
 
   changeLogoColor () : void {
@@ -127,7 +167,7 @@ export default class Settings extends Vue {
 
   addFlock () : void {
     const newFlock = this.preySelected ? new PreyFlock(this.flockName) : new PredatorFlock(this.flockName)
-
+    newFlock.createRandomBoids(10)
     MainApplication.flocks_.flocks_.forEach(flock => {
       if ((newFlock instanceof PreyFlock && flock instanceof PredatorFlock) ||
       newFlock instanceof PredatorFlock) {
@@ -171,5 +211,23 @@ input::-webkit-inner-spin-button {
 
 .color-input {
   border: 0;
+}
+
+#overlay-text {
+  position: absolute;
+  bottom: 5px;
+  left: 1px;
+  font-size: 10px;
+}
+
+#gh-pages {
+  position: absolute;
+  bottom: 5px;
+  left: 15%;
+  font-size: 10px;
+}
+
+li {
+  margin-top: 5px;
 }
 </style>
