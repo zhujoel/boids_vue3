@@ -17,7 +17,7 @@ export default class FlockApplication {
     this.flocks_[0].others_.push(this.walls_)
     this.flocks_[1].others_.push(this.walls_)
 
-    this.flocks_[0].createRandomBoids(3, 2)
+    this.flocks_[0].createRandomBoids(3, 2, 6)
     this.flocks_[1].createRandomBoids(200, 3)
   }
 
