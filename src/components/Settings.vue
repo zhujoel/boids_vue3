@@ -95,11 +95,13 @@ export default class Settings extends Vue {
     const newFlock = this.preySelected ? new PreyFlock(this.flockName) : new PredatorFlock(this.flockName)
 
     MainApplication.flocks_.flocks_.forEach(flock => {
-      if (flock instanceof PreyFlock) {
+      if ((newFlock instanceof PreyFlock && flock instanceof PredatorFlock) ||
+      newFlock instanceof PredatorFlock) {
         flock.others_.push(newFlock)
         newFlock.others_.push(flock)
       }
     })
+    newFlock.others_.push(MainApplication.flocks_.walls_)
     this.flocks.flocks_.push(newFlock)
   }
 

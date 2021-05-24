@@ -6,14 +6,15 @@ export default class Boid {
   public readonly pos_: Point
   public readonly vel_: Point
   public graphics_ = new Graphics()
-  public size_ = 3
+  public size_
 
-  constructor (pos: Point, vel: Point, MAX_VEL = 3) {
+  constructor (pos: Point, vel: Point, MAX_VEL = 3, size = 3) {
     this.pos_ = pos
     this.graphics_.x = pos.x_
     this.graphics_.y = pos.y_
     this.vel_ = vel
     this.MAX_VEL = MAX_VEL
+    this.size_ = size
   }
 
   // checks for distance and angle of view.

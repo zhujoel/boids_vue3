@@ -14,7 +14,7 @@ export default class PredatorFlock extends IFlock {
 
   move () : void {
     this.boids_.forEach(pred => {
-      Separation.apply(pred, this.boids_, 75, Math.PI, 0.5)
+      Separation.apply(pred, this.boids_, 25, Math.PI, 0.5)
       this.apply(pred)
     })
     this.draw()
