@@ -9,7 +9,7 @@ export default class PredatorFlock extends IFlock {
   }
 
   applyFlock (boid: Boid) : void {
-    Separation.apply(boid, this.boids_, MainApplication.randomNum(1, 35), Math.PI * 0.4, 0.2)
+    Separation.apply(boid, this.boids_, MainApplication.randomNum(1, 35), Math.PI * 0.4, 0.1)
   }
 
   move () : void {
