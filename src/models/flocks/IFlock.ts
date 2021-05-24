@@ -36,9 +36,9 @@ export default abstract class IFlock {
   }
 
   apply (boid: Boid) : void {
+    Bound.apply(boid, 1, MainApplication.width_ / 2, MainApplication.height_ / 2)
     boid.limitVelocity()
     this.applyOthers(boid)
-    Bound.apply(boid, 1, MainApplication.width_ / 2, MainApplication.height_ / 2)
     boid.pos_.addP(boid.vel_)
   }
 
