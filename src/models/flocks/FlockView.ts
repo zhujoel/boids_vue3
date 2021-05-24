@@ -4,6 +4,7 @@ import IFlock from './IFlock'
 export default class FlockView {
   app_: FlockApplication
   cnts_ = [0, 0]
+  adds_ = [0, 0]
 
   constructor (app: FlockApplication) {
     this.app_ = app

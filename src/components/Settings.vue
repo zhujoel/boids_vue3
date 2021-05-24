@@ -2,7 +2,7 @@
   <Button v-if="!this.start" class="start-btn p-button-success" @click="startStop()">
     <i class="pi pi-play" style="margin: auto" />
   </Button>
-  <Button v-else class="start-btn p-button-danger" @click="startStop()">
+  <Button v-else class="start-btn p-button-warning" @click="startStop()">
     <i class="pi pi-pause" style="margin: auto" />
   </Button>
   <br />
@@ -10,17 +10,20 @@
     <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_">
       <template #header>
         <span>{{flock.name_}}</span>
-        <img v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem" />
-        <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
+        <img v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
+        <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
       </template>
-      {{ this.view.counter(flock) }}
-      <input type="color" @change="changeColor($event, flock)" >
+      <div> Count: {{ this.view.counter(flock) }} </div>
+      <div> Color: <input type="color" @change="changeColor($event, flock)" /> </div>
       <div v-for="rule in flock.rules_" :key="rule.name_">
         {{ rule.name_ }}
         <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
       </div>
-      <Button label="Add" @click="addBoids(flock)" />
-      <Button label="Delete" @click="deleteAccordion(flock)" />
+      <div>
+        Add boids: <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
+        <Button class="p-button-success" icon="pi pi-plus" @click="addBoids(flock)" />
+      </div>
+      <Button class="p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
     </AccordionTab>
   </Accordion>
   <div id="flock-input">
@@ -28,7 +31,7 @@
       <img v-if="this.preySelected" alt="logo" src="../../assets/fish.png" style="width: 1.5rem" />
       <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
     </Button>
-    <InputText id="add-flock-name" v-model="this.flockName" />
+    <InputText id="add-flock-name" placeholder="Flock name" v-model="this.flockName" />
     <Button class="p-button-text" id="add-flock-btn" label="Add Flock" @click="addFlock()"/>
   </div>
 </template>
@@ -66,9 +69,15 @@ export default class Settings extends Vue {
     const val = e.target.value
     const idx = this.flocks.flocks_.indexOf(flock)
     MainApplication.flocks_.flocks_[idx].boids_.forEach(boid => {
-      console.log(parseInt(val.slice(1), 16))
       boid.color_ = parseInt(val.slice(1), 16)
     })
+  }
+
+  noBoidsToAdd (e: any, flock: IFlock) : void {
+    const val = e.target.value
+    const idx = this.flocks.flocks_.indexOf(flock)
+    this.view.adds_[idx] = val
+    console.log(this.view.adds_[idx])
   }
 
   startStop () : void {
@@ -81,7 +90,8 @@ export default class Settings extends Vue {
 
   addBoids (flock: IFlock) : void {
     const idx = this.flocks.flocks_.indexOf(flock)
-    MainApplication.flocks_.flocks_[idx].createRandomBoids(10, 3, 0xFF0000)
+    const amount = this.view.adds_[idx]
+    MainApplication.flocks_.flocks_[idx].createRandomBoids(amount, 3, 0xFF0000)
   }
 
   addFlock () : void {
@@ -96,7 +106,7 @@ export default class Settings extends Vue {
     this.flocks.flocks_.push(newFlock)
   }
 
-  deleteAccordion (flock: IFlock) : void {
+  deleteFlock (flock: IFlock) : void {
     const idx = this.flocks.flocks_.indexOf(flock)
     MainApplication.removeFlockFromApp(MainApplication.flocks_.flocks_[idx])
     this.flocks.flocks_.splice(idx, 1)
@@ -111,6 +121,17 @@ export default class Settings extends Vue {
 <style>
 .start-btn {
   width: 100%;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  width: 30%
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 #add-flock-btn {

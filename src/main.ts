@@ -9,6 +9,7 @@ import AccordionTab from 'primevue/accordiontab'
 import Slider from 'primevue/slider'
 import InputText from 'primevue/inputtext'
 import ColorPicker from 'primevue/colorpicker'
+import InputNumber from 'primevue/inputnumber'
 
 import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -23,4 +24,5 @@ createApp(App)
   .component('Slider', Slider)
   .component('InputText', InputText)
   .component('ColorPicker', ColorPicker)
+  .component('InputNumber', InputNumber)
   .mount('#app')
