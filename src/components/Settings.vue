@@ -15,16 +15,29 @@
         <img class="flock-logo" v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
         <Button class="p-button-text p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
       </template>
-      <div> Color: <input class="color-input" type="color" @change="changeColor($event, flock)" /> </div>
-      <div>
-        Add boids: <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
-        <Button class="p-button-text" icon="pi pi-plus" style="padding: 0;" @click="addBoids(flock)" />
-      </div>
-      <div v-for="rule in flock.rules_" :key="rule.name_">
-        {{ rule.name_ }}
-        <Slider v-if="rule.isSeparation()" :min="0" :max="30" v-model="rule.params_.dist"/>
-        <Slider v-else :min="0" :max="120" v-model="rule.params_.dist"/>
-      </div>
+
+      <table style="width:100%">
+        <tr>
+          <td> Color: </td>
+          <td>
+            <input class="color-input" type="color" @change="changeColor($event, flock)" />
+          </td>
+        </tr>
+        <tr>
+          <td> Add boids: </td>
+          <td>
+            <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
+            <Button class="p-button-text" icon="pi pi-plus" style="padding: 0;" @click="addBoids(flock)" />
+          </td>
+        </tr>
+        <tr v-for="rule in flock.rules_" :key="rule.name_">
+          <td style="width: 30%"> {{ rule.name_ }} </td>
+          <td>
+            <Slider v-if="rule.isSeparation()" :min="0" :max="30" v-model="rule.params_.dist"/>
+            <Slider v-else :min="0" :max="120" v-model="rule.params_.dist"/>
+          </td>
+        </tr>
+      </table>
     </AccordionTab>
   </Accordion>
   <div id="flock-input">
@@ -137,12 +150,11 @@ export default class Settings extends Vue {
 <style>
 .start-btn {
   width: 100%;
-  color:red;
 }
 
 input[type=number] {
   -moz-appearance: textfield;
-  width: 15%;
+  width: 50%;
   border: 1px solid grey;
   border-radius: 5px;
 }
