@@ -68,16 +68,13 @@ export default class Settings extends Vue {
   changeColor (e: any, flock: IFlock) : void {
     const val = e.target.value
     const idx = this.flocks.flocks_.indexOf(flock)
-    MainApplication.flocks_.flocks_[idx].boids_.forEach(boid => {
-      boid.color_ = parseInt(val.slice(1), 16)
-    })
+    MainApplication.flocks_.flocks_[idx].color_ = parseInt(val.slice(1), 16)
   }
 
   noBoidsToAdd (e: any, flock: IFlock) : void {
     const val = e.target.value
     const idx = this.flocks.flocks_.indexOf(flock)
     this.view.adds_[idx] = val
-    console.log(this.view.adds_.length)
   }
 
   startStop () : void {
@@ -91,7 +88,7 @@ export default class Settings extends Vue {
   addBoids (flock: IFlock) : void {
     const idx = this.flocks.flocks_.indexOf(flock)
     const amount = this.view.adds_[idx]
-    MainApplication.flocks_.flocks_[idx].createRandomBoids(amount, 3, flock.color_)
+    MainApplication.flocks_.flocks_[idx].createRandomBoids(amount, 3)
   }
 
   addFlock () : void {

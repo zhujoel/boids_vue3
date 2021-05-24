@@ -17,5 +17,6 @@ export default class PredatorFlock extends IFlock {
       Separation.apply(pred, this.boids_, 75, Math.PI, 0.5)
       this.apply(pred)
     })
+    this.draw()
   }
 }

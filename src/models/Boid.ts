@@ -6,17 +6,14 @@ export default class Boid {
   public readonly pos_: Point
   public readonly vel_: Point
   public graphics_ = new Graphics()
-  public color_: number
   public size_ = 3
 
-  constructor (pos: Point, vel: Point, MAX_VEL = 3, color = 0xFF0000) {
+  constructor (pos: Point, vel: Point, MAX_VEL = 3) {
     this.pos_ = pos
     this.graphics_.x = pos.x_
     this.graphics_.y = pos.y_
     this.vel_ = vel
     this.MAX_VEL = MAX_VEL
-    this.color_ = color
-    this.draw()
   }
 
   // checks for distance and angle of view.
@@ -29,17 +26,6 @@ export default class Boid {
     const pNorm : number = pos.norm2()
     const cosAlpha = center.dotProd(pos) / (centerNorm * pNorm)
     return Math.acos(cosAlpha) <= angle
-  }
-
-  draw () : void {
-    this.graphics_.position.x = this.pos_.x_
-    this.graphics_.position.y = this.pos_.y_
-    this.graphics_
-      .clear()
-      .lineStyle(this.size_, this.color_)
-      .moveTo(this.pos_.x_, this.pos_.y_)
-      .lineTo(this.pos_.x_ + this.vel_.x_ * this.size_, this.pos_.y_ + this.vel_.y_ * this.size_)
-      .closePath()
   }
 
   limitVelocity () : void {

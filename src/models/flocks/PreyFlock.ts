@@ -6,8 +6,8 @@ import IFlock from './IFlock'
 import Boid from '../Boid'
 
 export default class PreyFlock extends IFlock {
-  constructor (name: string) {
-    super(name)
+  constructor (name: string, color = 0x000000) {
+    super(name, color)
     this.rules_.push(new AlignmentRule('Alignment', 100, Math.PI * 0.3, 0.05))
   }
 
@@ -31,5 +31,6 @@ export default class PreyFlock extends IFlock {
       })
       this.apply(boid)
     })
+    this.draw()
   }
 }

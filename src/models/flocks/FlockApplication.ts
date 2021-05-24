@@ -7,8 +7,8 @@ import WallFlock from './WallFlock'
 export default class FlockApplication {
   public walls_ = new WallFlock('Wall')
   public flocks_: IFlock[] = [
-    new PredatorFlock('Predator'),
-    new PreyFlock('Prey')
+    new PredatorFlock('Predator', 0xFF0000),
+    new PreyFlock('Prey', 0x0000FF)
   ]
 
   constructor () {
@@ -17,8 +17,8 @@ export default class FlockApplication {
     this.flocks_[0].others_.push(this.walls_)
     this.flocks_[1].others_.push(this.walls_)
 
-    this.flocks_[0].createRandomBoids(3, 2, 0xFF0000)
-    this.flocks_[1].createRandomBoids(200, 3, 0x0000FF)
+    this.flocks_[0].createRandomBoids(3, 2)
+    this.flocks_[1].createRandomBoids(200, 3)
   }
 
   move (view: FlockView) : void {
