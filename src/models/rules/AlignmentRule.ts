@@ -10,6 +10,10 @@ export default class AlignmentRule extends IRule {
     this.params_.mag = mag
   }
 
+  isSeparation () : boolean {
+    return false
+  }
+
   apply (current: Boid, boids: Boid[]) : void {
     const rule: Point = new Point(0, 0)
     let cnt = 0

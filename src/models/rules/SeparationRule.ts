@@ -10,6 +10,10 @@ export default class CohesionRule extends IRule {
     this.params_.mag = mag
   }
 
+  isSeparation () : boolean {
+    return true
+  }
+
   apply (current: Boid, boids: Boid[]) : void {
     const rule: Point = new Point(0, 0)
     boids.forEach(b => {

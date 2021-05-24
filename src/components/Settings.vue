@@ -22,7 +22,8 @@
       </div>
       <div v-for="rule in flock.rules_" :key="rule.name_">
         {{ rule.name_ }}
-        <Slider :min="0" :max="100" v-model="rule.params_.dist"/>
+        <Slider v-if="rule.isSeparation()" :min="0" :max="30" v-model="rule.params_.dist"/>
+        <Slider v-else :min="0" :max="120" v-model="rule.params_.dist"/>
       </div>
     </AccordionTab>
   </Accordion>

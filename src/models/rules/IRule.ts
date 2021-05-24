@@ -8,5 +8,7 @@ export default abstract class IRule {
     this.name_ = name
   }
 
+  abstract isSeparation () : boolean
+
   abstract apply (current: Boid, boids: Boid[]) : void
 }
