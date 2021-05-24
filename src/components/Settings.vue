@@ -10,10 +10,11 @@
     <AccordionTab v-for="flock in this.flocks.flocks_" :key="flock.name_">
       <template #header>
         <span>{{flock.name_}}</span>
+        <span style="margin: auto"> {{ this.view.counter(flock) }} </span>
         <img v-if="flock.isPreyFlock()" alt="logo" src="../../assets/fish.png" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
         <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem; margin-left: auto; margin-right: 0;" />
+        <Button class="p-button-text p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
       </template>
-      <div> Count: {{ this.view.counter(flock) }} </div>
       <div> Color: <input type="color" @change="changeColor($event, flock)" /> </div>
       <div v-for="rule in flock.rules_" :key="rule.name_">
         {{ rule.name_ }}
@@ -21,9 +22,8 @@
       </div>
       <div>
         Add boids: <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
-        <Button class="p-button-success" icon="pi pi-plus" @click="addBoids(flock)" />
+        <Button class="p-button-text" icon="pi pi-plus" @click="addBoids(flock)" />
       </div>
-      <Button class="p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
     </AccordionTab>
   </Accordion>
   <div id="flock-input">
@@ -77,7 +77,7 @@ export default class Settings extends Vue {
     const val = e.target.value
     const idx = this.flocks.flocks_.indexOf(flock)
     this.view.adds_[idx] = val
-    console.log(this.view.adds_[idx])
+    console.log(this.view.adds_.length)
   }
 
   startStop () : void {
@@ -91,7 +91,7 @@ export default class Settings extends Vue {
   addBoids (flock: IFlock) : void {
     const idx = this.flocks.flocks_.indexOf(flock)
     const amount = this.view.adds_[idx]
-    MainApplication.flocks_.flocks_[idx].createRandomBoids(amount, 3, 0xFF0000)
+    MainApplication.flocks_.flocks_[idx].createRandomBoids(amount, 3, flock.color_)
   }
 
   addFlock () : void {

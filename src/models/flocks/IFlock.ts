@@ -8,12 +8,14 @@ export default abstract class IFlock {
   name_: string
   rules_: IRule[]
   boids_: Boid[]
+  color_: number
   readonly others_: IFlock[]
 
   constructor (name: string) {
     this.name_ = name
     this.rules_ = []
     this.boids_ = []
+    this.color_ = 0x000000
     this.others_ = []
   }
 
