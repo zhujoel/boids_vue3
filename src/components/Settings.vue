@@ -16,13 +16,13 @@
         <Button class="p-button-text p-button-danger" icon="pi pi-trash" @click="deleteFlock(flock)" />
       </template>
       <div> Color: <input class="color-input" type="color" @change="changeColor($event, flock)" /> </div>
+      <div>
+        Add boids: <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
+        <Button class="p-button-text" icon="pi pi-plus" style="padding: 0;" @click="addBoids(flock)" />
+      </div>
       <div v-for="rule in flock.rules_" :key="rule.name_">
         {{ rule.name_ }}
         <Slider :min="0" :max="500" v-model="rule.params_.dist"/>
-      </div>
-      <div>
-        Add boids: <input type="number" value="0" @change="noBoidsToAdd($event, flock)" />
-        <Button class="p-button-text" icon="pi pi-plus" @click="addBoids(flock)" />
       </div>
     </AccordionTab>
   </Accordion>
@@ -32,7 +32,7 @@
       <img v-else alt="logo" src="../../assets/shark.svg" style="width: 1.5rem" />
     </Button>
     <InputText id="add-flock-name" placeholder="Flock name" v-model="this.flockName" />
-    <Button class="p-button-text" id="add-flock-btn" label="Add Flock" @click="addFlock()"/>
+    <Button class="p-button-rounded p-button-text" icon="pi pi-plus-circle" @click="addFlock()"/>
   </div>
 </template>
 
@@ -129,10 +129,6 @@ export default class Settings extends Vue {
     const idx = this.flocks.flocks_.indexOf(flock)
     MainApplication.removeFlockFromApp(MainApplication.flocks_.flocks_[idx])
     this.flocks.flocks_.splice(idx, 1)
-    this.flocks.flocks_.forEach(flock => {
-      const otherIdx = flock.others_.indexOf(flock)
-      flock.others_.splice(otherIdx, 1)
-    })
   }
 }
 </script>
@@ -140,11 +136,14 @@ export default class Settings extends Vue {
 <style>
 .start-btn {
   width: 100%;
+  color:red;
 }
 
 input[type=number] {
   -moz-appearance: textfield;
-  width: 30%
+  width: 15%;
+  border: 1px solid grey;
+  border-radius: 5px;
 }
 
 input::-webkit-outer-spin-button,
@@ -153,11 +152,13 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-#add-flock-btn {
-  width: 100%;
+#add-flock-name {
+  width: 60%;
 }
 
-#add-flock-name {
-  width: 77%;
+.color-input {
+  border: 0;
+  width: 40px;
+  height: 15px;
 }
 </style>

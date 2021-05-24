@@ -49,5 +49,6 @@ export default class MainApplication {
     for (let i = 0; i < flock.boids_.length; ++i) {
       MainApplication.removeBoidFromApp(flock.boids_[i])
     }
+    flock.boids_ = []
   }
 }
