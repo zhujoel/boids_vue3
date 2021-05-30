@@ -11,7 +11,7 @@ export default class PreyFlock extends IFlock {
     super(name, color)
     this.rules_.push(new AlignmentRule('Alignment', 100, Math.PI * 0.3, 0.05))
     this.rules_.push(new CohesionRule('Cohesion', 20, Math.PI * 0.3, 0.005))
-    this.rules_.push(new SeparationRule('Separation', 15, Math.PI, 0.05))
+    this.rules_.push(new SeparationRule('Separation', 3, Math.PI, 0.05))
   }
 
   isPreyFlock () : boolean {
@@ -21,7 +21,9 @@ export default class PreyFlock extends IFlock {
   applyFlock (boid: Boid) : void {
     this.applyFlockRule.apply(boid, this.boids_)
     if (Eat.apply(boid, this.boids_, boid.size_ * 0.5)) {
-      boid.size_++
+      if (boid.size_ < 10) {
+        boid.size_++
+      }
     }
   }
 
